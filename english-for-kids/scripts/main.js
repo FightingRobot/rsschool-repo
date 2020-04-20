@@ -452,67 +452,6 @@ class Statistics {
     localStorage.setItem('playedCards', JSON.stringify([]));
     this.drawStats();
   }
-
-  sortStat() {
-    // alert(event.target.textContent)
-    let clickedButton = event.target.textContent;
-    let tbody = document.querySelector('tbody');
-    let tbodyArr = Array.prototype.slice.call(tbody);
-    alert(tbody.querySelector('.word').textContent);
-
-    if (clickedButton === 'Word') {
-      let sortParameter = Array.prototype.slice.call(tbody.querySelectorAll('.word'));
-      sortParameter.forEach(x => alert(x.innerHTML));
-      sortParameter.sort();
-      alert(sortParameter)
-
-
-    }
-    // else if (clickedButton === 'Translation') {
-    //   let sortParameter = tbody.querySelectorAll('.translation');
-
-    // } else if (clickedButton === 'Category') {
-    //   let sortParameter = tbody.querySelectorAll('.category');
-
-    // } else if (clickedButton === 'Clicked') {
-    //   let sortParameter = tbody.querySelectorAll('.clicks');
-
-    // } else if (clickedButton === 'Guessed Right') {
-    //   let sortParameter = tbody.querySelectorAll('.guessed-right');
-
-    // } else if (clickedButton === 'Guessed Wrong') {
-    //   let sortParameter = tbody.querySelectorAll('.guessed-wrong');
-
-    // } else if (clickedButton === 'r/w%') {
-    //   let sortParameter = tbody.querySelectorAll('.percentage');
-
-    // }
-
-    // let tr = tbody.querySelectorAll('tr');
-    // tbody[5].textContent.sort((a, b) => a - b);
-    // alert(tbodyArr[0].firstChild.textContent)
-    tbodyArr.sort((a, b) => {
-      alert(a.innerHTML);
-      alert(b.innerHTML);
-      // if (a[5].textContent > b[5].textContent) return 1
-      // if (a[5].textContent < b[5].textContent) return -1
-    });
-
-    // alert(tbodyArr[0].firstChild.textContent)
-    // alert(tbodyArr[5].firstChild.textContent);
-    // let tbodyArr = Array.prototype.slice.call(tbody);
-    // alert(tbodyArr.querySelector(td).innerHTML);
-
-    // alert(tbody.childNodes.forEach(x => alert(x.firstChild.textContent)));
-    // tbody.childNodes.forEach(x => x.firstChild.textContent);
-    // tbody.childNodes[0].sort();
-    // if (event.target.textContent == 'Word') {
-    //   let units = Array.prototype.slice.call(table.querySelectorAll('word'));
-    //   alert(units);
-    //   units.sort();
-    //   alert(units);
-    // }
-  }
 }
 
 const siteBehavior = new SiteBehavior();
