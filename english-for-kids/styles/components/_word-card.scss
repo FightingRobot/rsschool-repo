@@ -1,0 +1,174 @@
+.word-card {
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+    flex-grow: 0;
+    margin: 10px;
+    border-radius: 20px;
+    border: 2px solid $buddha-gold;
+    overflow: hidden;
+    position: relative;
+    transition: 0.1s;
+    color: $buddha-gold;
+    cursor: pointer;
+
+    &__background {
+        display: flex;
+        flex-direction: column;
+        height: 150px;
+        background-color: $buddha-gold;
+        transition: 0.6s;
+    }
+
+    &__image {
+        left: 75px;
+        top: 25px;
+        height: 150px;
+        width: 150px;
+        background-color: $mine-shaft;
+        position: absolute;
+        border-radius: 50%;
+        border: 5px solid #927E25;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url('../assets/1.jpg');
+        background-position: center;
+        background-size: cover;
+    
+    
+        img {
+            height: 100%;
+            // width: 100%;
+        }
+    }
+
+    &__description {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        transition: 0.6s;
+    }
+
+    &__translate {
+        display: none;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        mask-image: url('../assets/img/sync-alt-solid.svg');
+        width: 20px;
+        height: 20px;
+        background-color: $buddha-gold;
+        cursor: pointer;
+    }
+
+    &__translation {
+        display: none;
+        top: -290px;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        background-color: $buddha-gold;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        color: $mine-shaft;
+        transition: 0.6s;
+
+        &_active {
+            top: 0;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+}
+
+.word-card:hover {
+    transform: scale(1.1);
+}
+
+.body_play {
+    .word-card {
+        color: $mine-shaft;
+        border-color: $mine-shaft;
+    
+        &__background {
+            background-color: $mine-shaft;
+        }
+
+        &__image {
+            border-color: #303030;
+        }
+    
+        &__description {
+            color: $mine-shaft;
+        }
+
+        &__translate {
+            display: none !important;
+        }
+    }
+
+    .play-card {
+        &_answered {
+            filter: blur(5px);
+        }
+
+        .word-card__background {
+            background-color: $mine-shaft;
+            height: 254px;
+        }
+
+        .word-card__description {
+            height: 0;
+
+            h3 {
+                display: none;
+            }
+        }
+    }
+}
+
+.play-card {
+    cursor: default;
+
+    .word-card__image {
+        width: 100%;
+        height: 100%;
+        // max-width: 150px;
+        background-color: $mine-shaft;
+        position: static;
+        border-radius: 0;
+        border-width: 0;
+        // border: 5px solid #927E25;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .word-card__translation {
+        display: flex;
+    }
+
+    .word-card__translate {
+        display: inline-block;
+    }
+}
+
+// .play-card:hover {
+//     transform: scale(1) !important;
+
+//     .word-card__background {
+//         height: 100%;
+//     }
+    
+//     .word-card__description {
+//         display: none;
+//     }
+// }

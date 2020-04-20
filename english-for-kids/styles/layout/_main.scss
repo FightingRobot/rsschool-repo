@@ -1,0 +1,94 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+}
+
+.status-bar {
+    padding: 0 10px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    align-self: flex-end;
+}
+
+.star {
+    height: 30px;
+}
+
+.buttons-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.main__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    // padding-top: 50px;
+
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.endgame-popup {
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        font-size: 20px;
+        color: $mine-shaft;
+        margin-bottom: 10px;
+    }
+}
+
+.head-buttons:hover {
+    background-color: $buddha-gold;
+    color: $mine-shaft;
+    cursor: pointer;
+}
+
+table {
+    border: 1px solid $buddha-gold;
+    color: $buddha-gold;
+    
+    td {
+        // width: 3px;
+        border: 2px solid $buddha-gold;
+        padding: 2px;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    @media screen and (max-width: 767px) {
+        font-size: 10px;
+    }
+}
+
+.body_play {
+    background-color: $buddha-gold;
+
+    table {
+        border-color: $mine-shaft;
+        color: $mine-shaft;
+    }
+
+    td {
+        border-color: $mine-shaft;
+    }
+
+    .head-buttons:hover {
+        background-color: $mine-shaft;
+        color: $buddha-gold;
+    }
+}

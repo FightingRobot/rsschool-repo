@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English for Kids</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <script src="./scripts/main.js" type="module"></script>
+</head>
+
+<body class='body'>
+  <audio class='sound-correct' src=" ./assets/audio/correct.mp3"></audio>
+  <audio class='sound-error' src="./assets/audio/error.mp3"></audio>
+  <header class="header">
+    <div class="content header__content">
+      <div class="header__left">
+        <div class="burger">
+          <span></span>
+        </div>
+        <div class="burger-menu">
+          <a class="burger-menu__link burger-menu__link_active" href="#">Main Page</a>
+          <a class="burger-menu__link" href="#">Actions (Set A)</a>
+          <a class="burger-menu__link" href="#">Actions (Set B)</a>
+          <a class="burger-menu__link" href="#">Actions (Set C)</a>
+          <a class="burger-menu__link" href="#">Colors</a>
+          <a class="burger-menu__link" href="#">Animals (Set A)</a>
+          <a class="burger-menu__link" href="#">Animals (Set B)</a>
+          <a class="burger-menu__link" href="#">Clothes</a>
+          <a class="burger-menu__link" href="#">Emotions</a>
+          <a class="burger-menu__link" href="#">Statistics</a>
+        </div>
+      </div>
+      <div class="header__center">
+        <div class="start-btn start-btn_repeat-word">
+          <span>START GAME</span>
+          <span class='start-btn__play'>&#9658;</span>
+          <div></div>
+          <!-- <img src="./assets/img/redo-solid.svg" alt=""> -->
+        </div>
+      </div>
+      <div class="header__right">
+        <div class="train-box">
+          <div class="train-box__labels">
+            <span>Play</span>
+            <span>Train</span>
+          </div>
+          <div class="train-box__switch"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="status-bar"></div>
+    <div style='display: none' class='game-won-popup endgame-popup'>
+      <span>Winner!</span>
+      <img src="./assets/img/success.jpg" alt="">
+      <audio class='sound-win' src="./assets/audio/success.mp3"></audio>
+    </div>
+    <div style='display: none' class='game-lost-popup endgame-popup'>
+      <span></span>
+      <img src="./assets/img/failure.jpg" alt="">
+      <audio class='sound-lose' src="./assets/audio/failure.mp3"></audio>
+    </div>
+    <div class="buttons-block"></div>
+    <div class="content main__content">
+    </div>
+  </main>
+</body>
+
+</html>
