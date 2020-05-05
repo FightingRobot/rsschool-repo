@@ -1,0 +1,39 @@
+// .main {
+//     height: 80%;
+// }
+
+// .main__content {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+.main__search {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 20px;
+    background-color: $buddha-gold;
+    padding: 15px;
+    border: none;
+    border-radius: 20px;
+}
+
+.main__info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $buddha-gold;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.swiper-container {
+    height: 300px;
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: $buddha-gold;
+    }
+}

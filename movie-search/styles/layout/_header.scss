@@ -1,0 +1,10 @@
+.header {
+    border-bottom: 2px solid $buddha-gold;
+}
+
+.header__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $buddha-gold;
+}
