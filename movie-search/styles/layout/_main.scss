@@ -9,14 +9,57 @@
 //     align-items: center;
 // }
 
-.main__search {
+.search-form {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    margin-bottom: 10px;
-    height: 20px;
-    background-color: $buddha-gold;
-    padding: 15px;
-    border: none;
-    border-radius: 20px;
+    height: 30px;
+
+    .search-form__find {
+        border: none;
+        border-radius: 20px;
+        background-color: $mine-shaft;
+        color: $buddha-gold;
+        border: 2px solid $buddha-gold;
+        height: 100%;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $buddha-gold;
+            color: $mine-shaft;
+        }
+    }
+
+    .search-form__clear {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 100%;
+        border-radius: 50%;
+        background-color: $mine-shaft;
+        color: $buddha-gold;
+        border: 2px solid $buddha-gold;
+        margin-right: 10px;
+        font-size: 30px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $buddha-gold;
+            color: $mine-shaft;
+        }
+    }
+
+    .search-form__search {
+        margin-bottom: 10px;
+        height: 100%;
+        width: 80%;
+        background-color: $buddha-gold;
+        padding: 15px;
+        border: none;
+        border-radius: 20px;
+        margin-right: 10px;
+    }
 }
 
 .main__info {
@@ -30,10 +73,49 @@
 }
 
 .swiper-container {
-    height: 300px;
+    height: 400px;
 
     .swiper-button-next,
     .swiper-button-prev {
         color: $buddha-gold;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: $buddha-gold;
+    }
+}
+
+.swiper-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $buddha-gold;
+
+    a {
+        color: $buddha-gold;
+    }
+
+    div {
+        margin-bottom: 10px;
+    }
+
+    .swiper-slide__title {
+        text-align: center;
+        margin-bottom: 10px;
+        height: 30px;
+        overflow: hidden;
+    }
+
+    .swiper-slide__poster {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        height: 260px;
+        width: 70%;
+    }
+
+    img {
+        width: 100%;
     }
 }
