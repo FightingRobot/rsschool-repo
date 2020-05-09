@@ -9,10 +9,13 @@
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
     <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
-    <!-- <script src="./scripts/swiper.js" defer></script> -->
+    <script src="./scripts/swiper.js" type="module"></script>
 
     <link rel="stylesheet" href="styles/main.css">
-    <script src="./scripts/main.js" defer></script>
+    <script src="./scripts/main.js" type="module"></script>
+    <script src="./scripts/Card.js" type="module"></script>
+    <script src="./scripts/OmdbAPI.js" type="module"></script>
+    <script src="./scripts/YandexAPI.js" type="module"></script>
 </head>
 
 <body>
@@ -33,18 +36,18 @@
 
             <div class="main__info"></div>
 
-            <div class="swiper-container" style="top: -100%">
+            <div class="swiper-container">
                 <div class="loadscreen">Loading, please wait</div>
+                <div class="popup">Here could be your desired movies</div>
                 <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
+                    <!-- <div class="swiper-slide">
                         <a class="swiper-slide__title" href="#">Пока
                             ничего не искалось</a>
                         <div class="swiper-slide__poster"><img src="">
                         </div>
                         <div class="swiper-slide__year">2013</div>
                         <div class="swiper-slide__rating">4.1</div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="swiper-pagination"></div>

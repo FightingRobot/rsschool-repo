@@ -1,6 +1,7 @@
 var mySwiper = new Swiper('.swiper-container', {
-    loop: true,
+    // loop: true,
     slidesPerView: 4,
+    spaceBetween: 20,
 
     pagination: {
         el: '.swiper-pagination',
@@ -11,3 +12,5 @@ var mySwiper = new Swiper('.swiper-container', {
         prevEl: '.swiper-button-prev',
     },
 })
+
+export default mySwiper

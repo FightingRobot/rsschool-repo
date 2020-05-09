@@ -294,6 +294,25 @@ textarea {
   transition: 0.1s;
 }
 
+.popup {
+  width: 100%;
+  height: 100%;
+  background-color: #333333;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  font-size: 26px;
+  color: #c3a000;
+}
+
 .footer {
   border-top: 2px solid #c3a000;
 }
