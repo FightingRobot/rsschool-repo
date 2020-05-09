@@ -1,6 +1,8 @@
 const mainContent = document.querySelector('.main__content');
 const searchForm = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-form__search');
+const searchCross = document.querySelector('.search-form__clear');
+const loadscreen = document.querySelector('.loadscreen');
 
 var mySwiper = new Swiper('.swiper-container', {
     loop: true,
@@ -62,17 +64,52 @@ async function getId(movie) {
     return json.imdbRating
 }
 
+async function slideAdder(movieList) {
+    try {
+        for (let x of movieList) {
+            let rating = await getId(x.imdbID);
+            mySwiper.appendSlide(createSlide(x.Poster, x.Title, x.Year, rating, x.imdbID));
+        }
+    } finally {
+        mySwiper.slideToLoop(0, '1ms');
+        loadscreen.style.top = await '-100%'
+    }
+
+}
+
 async function addSlides() {
     mySwiper.removeAllSlides();
+    loadscreen.style.top = 0;
 
-    let movie = getValue();
-    let movieList = await getList(movie);
+    try {
 
-    movieList.forEach(async x => {
-        let rating = await getId(x.imdbID);
-        mySwiper.appendSlide(createSlide(x.Poster, x.Title, x.Year, rating, x.imdbID));
-    });
+        let movie = await getValue();
+        let movieList = await getList(movie);
+        slideAdder(movieList);
+
+    } catch {
+        return
+    }
 }
+
+
+
+// async function addSlides() {
+//     mySwiper.removeAllSlides();
+//     loadscreen.style.top = await 0;
+
+//     try {
+//         let movie = await getValue();
+//         let movieList = await getList(movie);
+
+//         movieList.forEach(async x => {
+//             let rating = await getId(x.imdbID);
+//             mySwiper.appendSlide(createSlide(x.Poster, x.Title, x.Year, rating, x.imdbID));
+//         });
+//     } finally {
+//         loadscreen.style.top = await '-100%'
+//     }
+// }
 
 function getValue() {
     event.preventDefault();
@@ -80,3 +117,7 @@ function getValue() {
 }
 
 searchForm.onsubmit = addSlides;
+searchCross.onclick = function () {
+    searchInput.value = '';
+    searchInput.focus();
+}
