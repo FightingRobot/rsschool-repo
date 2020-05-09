@@ -3,6 +3,7 @@ const searchForm = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-form__search');
 const searchCross = document.querySelector('.search-form__clear');
 const loadscreen = document.querySelector('.loadscreen');
+const infoBar = document.querySelector('.main__info');
 
 var mySwiper = new Swiper('.swiper-container', {
     loop: true,
@@ -24,6 +25,7 @@ async function getList(movie) {
     let responce = await fetch(`http://www.omdbapi.com/?s=${movie}&apikey=999d8d5b`);
     let json = await responce.json();
     return json.Search
+
 }
 
 function createSlide(poster, title, year, rating, id) {
@@ -64,7 +66,7 @@ async function getId(movie) {
     return json.imdbRating
 }
 
-async function slideAdder(movieList) {
+async function addSlides(movieList) {
     try {
         for (let x of movieList) {
             let rating = await getId(x.imdbID);
@@ -77,46 +79,52 @@ async function slideAdder(movieList) {
 
 }
 
-async function addSlides() {
+async function startSearch() {
+    let searchValue = searchInput.value;
     mySwiper.removeAllSlides();
     loadscreen.style.top = 0;
 
     try {
 
-        let movie = await getValue();
-        let movieList = await getList(movie);
-        slideAdder(movieList);
 
-    } catch {
-        return
+        let movie = await getValue();
+
+        let movieList = await getList(movie);
+        let ass = await addSlides(movieList);
+
+    } catch (e) {
+        infoBar.textContent = `No results for ${searchInput.value}`;
+        // alert('ОШИБКА')
+        // if (e.name === 'TypeError') {
+        //     infoBar.textContent = `No results for ${movie}`;
+        // }
     }
 }
 
-
-
-// async function addSlides() {
-//     mySwiper.removeAllSlides();
-//     loadscreen.style.top = await 0;
-
-//     try {
-//         let movie = await getValue();
-//         let movieList = await getList(movie);
-
-//         movieList.forEach(async x => {
-//             let rating = await getId(x.imdbID);
-//             mySwiper.appendSlide(createSlide(x.Poster, x.Title, x.Year, rating, x.imdbID));
-//         });
-//     } finally {
-//         loadscreen.style.top = await '-100%'
-//     }
-// }
-
-function getValue() {
+async function getValue() {
     event.preventDefault();
-    return searchInput.value
+    let startingValue = searchInput.value;
+
+    if (isRussian(startingValue)) {
+        let translatedValue = await translateValue(startingValue);
+        infoBar.textContent = `Showing results for \'${translatedValue}\'`;
+        return translatedValue;
+    }
+
+    return startingValue
 }
 
-searchForm.onsubmit = addSlides;
+function isRussian(value) {
+    return /[а-я]/i.test(value);
+}
+
+async function translateValue(value) {
+    let responce = await fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200509T182415Z.28d28ce3d1a7efd0.f489f83dd586544c20787a511bba0b474352d4b1&text=${value}&lang=ru-en`);
+    let json = await responce.json();
+    return json.text
+}
+
+searchForm.onsubmit = startSearch;
 searchCross.onclick = function () {
     searchInput.value = '';
     searchInput.focus();
