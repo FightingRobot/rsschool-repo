@@ -15,10 +15,6 @@ const card = new Card();
 const yandexAPI = new YandexAPI();
 const omdbAPI = new OmdbAPI();
 
-// function clearInfoBar() {
-//     infoBar.textContent = '';
-// }
-
 async function addSlides(movieList) {
     try {
         if (!movieList) throw new Error();
@@ -26,31 +22,35 @@ async function addSlides(movieList) {
         popup.style.display = 'none';
         for (let x of movieList) {
             let rating = await omdbAPI.getId(x.imdbID);
+            if (x.Poster === 'N/A') x.Poster = './assets/noimage.png';
             mySwiper.appendSlide(card.createSlide(x.Poster, x.Title, x.Year, rating, x.imdbID));
         }
     } catch {
-        infoBar.textContent = `No results for ${searchInput.value}`;
+        infoBar.textContent = `No results for ${omdbAPI.currentSearchValue}`;
     } finally {
         mySwiper.slideToLoop(0, '1ms');
-
     }
 }
 
-async function startSearch() {
+async function startSearch(n = 1, isNewSearch = true) {
 
     event.preventDefault();
     infoBar.textContent = '';
     loadscreen.style.top = 0;
 
-    let searchValue = searchInput.value;
+    if (isNewSearch) {
+        omdbAPI.currentSearchValue = searchInput.value;
+    }
+
+    // let searchValue = searchInput.value;
 
     try {
-        if (yandexAPI.isRussian(searchValue)) {
-            searchValue = await yandexAPI.translateValue(searchValue);
-            infoBar.textContent = `Showing results for \'${searchValue}\'`;
+        if (yandexAPI.isRussian(omdbAPI.currentSearchValue)) {
+            omdbAPI.currentSearchValue = await yandexAPI.translateValue(omdbAPI.currentSearchValue);
+            infoBar.textContent = `Showing results for \'${omdbAPI.currentSearchValue}\'`;
         }
 
-        let movieList = await omdbAPI.getList(searchValue);
+        let movieList = await omdbAPI.getList(omdbAPI.currentSearchValue, n);
         let ass = await addSlides(movieList);
 
 
@@ -71,4 +71,22 @@ searchForm.onsubmit = startSearch;
 searchCross.onclick = function () {
     searchInput.value = '';
     searchInput.focus();
+}
+
+mySwiper.on('slideChangeTransitionEnd', function () {
+    swiperState();
+});
+
+function swiperState() {
+    if (mySwiper.isEnd) {
+        omdbAPI.currentPage += 1;
+        startSearch(omdbAPI.currentPage, false);
+    }
+
+    if (mySwiper.isBeginning) {
+        if (omdbAPI.currentPage > 1) {
+            omdbAPI.currentPage -= 1;
+            startSearch(omdbAPI.currentPage, false);
+        }
+    }
 }
