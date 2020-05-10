@@ -1,0 +1,24 @@
+{
+  "name": "movie-search",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/fightingrobot-RS2020Q1.git"
+  },
+  "author": "Pavel Khatyliou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/fightingrobot-RS2020Q1/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/fightingrobot-RS2020Q1#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  }
+}

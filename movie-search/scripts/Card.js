@@ -1,42 +1,38 @@
 export default class Card {
-    constructor() {
+  createSlide(poster, title, year, rating, id, plot) {
+    const card = document.createElement('div');
+    card.classList.add('swiper-slide');
 
-    }
+    const cardTitle = document.createElement('a');
+    cardTitle.classList.add('swiper-slide__title');
+    cardTitle.textContent = title;
+    cardTitle.setAttribute('href', `https://www.imdb.com/title/${id}/videogallery/`);
 
-    createSlide(poster, title, year, rating, id, plot) {
-        const card = document.createElement('div');
-        card.classList.add('swiper-slide');
+    const cardPoster = document.createElement('div');
+    cardPoster.classList.add('swiper-slide__poster');
 
-        const cardTitle = document.createElement('a');
-        cardTitle.classList.add('swiper-slide__title');
-        cardTitle.textContent = title;
-        cardTitle.setAttribute('href', `https://www.imdb.com/title/${id}/videogallery/`);
+    const cardimg = document.createElement('img');
+    cardimg.setAttribute('src', poster);
+    cardPoster.append(cardimg);
 
-        const cardPoster = document.createElement('div');
-        cardPoster.classList.add('swiper-slide__poster');
+    const cardPlot = document.createElement('div');
+    cardPlot.classList.add('swiper-slide__plot');
+    cardPlot.textContent = plot;
+    cardPoster.append(cardPlot);
 
-        const cardimg = document.createElement('img');
-        cardimg.setAttribute('src', poster)
-        cardPoster.append(cardimg);
+    const cardYear = document.createElement('div');
+    cardYear.classList.add('swiper-slide__year');
+    cardYear.textContent = year;
 
-        const cardPlot = document.createElement('div');
-        cardPlot.classList.add('swiper-slide__plot');
-        cardPlot.textContent = plot;
-        cardPoster.append(cardPlot);
+    const cardRating = document.createElement('div');
+    cardRating.classList.add('swiper-slide__rating');
+    cardRating.textContent = rating;
 
-        const cardYear = document.createElement('div');
-        cardYear.classList.add('swiper-slide__year');
-        cardYear.textContent = year;
+    card.append(cardTitle);
+    card.append(cardPoster);
+    card.append(cardYear);
+    card.append(cardRating);
 
-        const cardRating = document.createElement('div');
-        cardRating.classList.add('swiper-slide__rating');
-        cardRating.textContent = rating;
-
-        card.append(cardTitle);
-        card.append(cardPoster);
-        card.append(cardYear);
-        card.append(cardRating);
-
-        return card
-    }
+    return card;
+  }
 }
