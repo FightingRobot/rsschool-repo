@@ -2,7 +2,6 @@ import Card from './Card.js';
 import YandexAPI from './YandexAPI.js';
 import OmdbAPI from './OmdbAPI.js';
 import Keyboard from './Keyboard.js';
-// import * as constants from './const.js';
 import mySwiper from './swiper.js';
 
 const card = new Card();
@@ -50,6 +49,7 @@ async function addSlides(movieList) {
 
 async function startSearch(n = 1, isNewSearch = true) {
   event.preventDefault();
+  keyboardBody.classList.remove('keyboard_active');
   infoBar.textContent = '';
   loadscreen.style.top = 0;
 
