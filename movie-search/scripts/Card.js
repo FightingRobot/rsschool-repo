@@ -3,7 +3,7 @@ export default class Card {
 
     }
 
-    createSlide(poster, title, year, rating, id) {
+    createSlide(poster, title, year, rating, id, plot) {
         const card = document.createElement('div');
         card.classList.add('swiper-slide');
 
@@ -18,6 +18,11 @@ export default class Card {
         const cardimg = document.createElement('img');
         cardimg.setAttribute('src', poster)
         cardPoster.append(cardimg);
+
+        const cardPlot = document.createElement('div');
+        cardPlot.classList.add('swiper-slide__plot');
+        cardPlot.textContent = plot;
+        cardPoster.append(cardPlot);
 
         const cardYear = document.createElement('div');
         cardYear.classList.add('swiper-slide__year');

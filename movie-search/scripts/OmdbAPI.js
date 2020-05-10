@@ -10,9 +10,9 @@ export default class OmdbAPI {
         return json.Search
     }
 
-    async getId(movie) {
+    async getFullInfoById(movie) {
         let imdbid = await fetch(`http://www.omdbapi.com/?i=${movie}&apikey=999d8d5b`);
         let json = await imdbid.json();
-        return json.imdbRating
+        return json
     }
 }
