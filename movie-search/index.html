@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieSearch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+    <script src="./scripts/swiper.js" type="module"></script>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="./scripts/main.js" type="module"></script>
+    <script src="./scripts/Card.js" type="module"></script>
+    <script src="./scripts/OmdbAPI.js" type="module"></script>
+    <script src="./scripts/YandexAPI.js" type="module"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="content header__content">
+            <h1>MovieSearch</h1>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="content main__content">
+            <form class="main__form search-form">
+                <div class="search-form__searchbar">
+                    <input class="search-form__search" type="text" placeholder="Search movie" autofocus>
+                    <div class="search-form__clear search-form__roundbutton">&times;</div>
+                    <div class="search-form__openkeyboard search-form__roundbutton">K</div>
+                    <button class="search-form__find">FIND</button>
+                </div>
+                <div class="search-form__keyboard"></div>
+
+            </form>
+
+
+            <div class="main__info"></div>
+
+            <div class="swiper-container">
+                <div class="loadscreen">Loading, please wait</div>
+                <div class="popup">
+                    <!-- <span>Here could be your desired movies</span> -->
+                    <span>Click on a movie poster to read the plot!</span>
+                </div>
+                <div class="swiper-wrapper">
+                </div>
+
+                <div class="swiper-pagination"></div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="content footer__content">
+            <span>RS School 2020q1</span>
+            <a href="https://github.com/FightingRobot">My github</a>
+        </div>
+    </footer>
+</body>
