@@ -1,0 +1,44 @@
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    height: 44px;
+    background-color: $hit_gray;
+    opacity: 0.7;
+    width: 44px;
+    margin-right: 10px;
+    color: $white;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &:active {
+        opacity: 0.7;
+    }
+}
+
+.btn__lang {
+    width: 71px;
+    font-weight: 700;
+    color: white;
+}
+
+.btn__tempscale {
+    width: 88px;
+    position: relative;
+    overflow: hidden;
+    background-color: #4C5255;
+
+    .btn_switch {
+        height: 100%;
+        width: 44px;
+        background-color: #AEB5B9;
+        position: absolute;
+        left: 0;
+        transition: 0.6s;
+    }
+}

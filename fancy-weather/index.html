@@ -4,37 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieSearch</title>
+    <title>Fancy Weather</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles/main.css">
     <script src="./scripts/main.js" type="module"></script>
-    <script src="./scripts/Card.js" type="module"></script>
-    <script src="./scripts/OmdbAPI.js" type="module"></script>
-    <script src="./scripts/YandexAPI.js" type="module"></script>
 </head>
 
 <body>
     <header class="header">
         <div class="content header__content">
             <div class="header__left">
-                <div class="btn__pic">
+                <div class="btn btn__pic">
 
                 </div>
-                <div class="btn__lang">
+                <div class="btn btn__lang">
                     <span>EN</span>
                 </div>
-                <div class="btn__temperature">
-
+                <div class="btn btn__tempscale">
+                    <div class="btn_switch"></div>
                 </div>
             </div>
-            <div class="header__right"></div>
+            <div class="header__right">
+                <form class="search-form" action="">
+                    <input class="search-form__input" type="text">
+                    <button class="btn search-form__send">SEARCH</button>
+                </form>
+            </div>
         </div>
     </header>
 
     <main class="main">
         <div class="content main__content">
+            <div class="main__left temp-info">
+                <div class="temp-info__country"></div>
+                <div class="temp-info__date">Mon 28 October 17:23:12</div>
+                <div class="temp-info__temp-today">
+                    <div class="temp-info__now">
+                        10
+                    </div>
+                    <div class="temp-info__overcast">
+                        <span>overcast</span>
+                        <span>feels like</span>
+                        <span>wind</span>
+                        <span>humidity</span>
+                    </div>
+                </div>
+                <div class="temp-info__temp-days">
+                    <div class="temp-info__temp-day">
+                        <div class="temp-info__day">TUESDAY</div>
+                        <div class="temp-info__temp">7</div>
+                    </div>
+                    <div class="temp-info__temp-day">
+                        <div class="temp-info__day">WEDNESDAY</div>
+                        <div class="temp-info__temp">6</div>
+                    </div>
+                    <div class="temp-info__temp-day">
+                        <div class="temp-info__day">THURSDAY</div>
+                        <div class="temp-info__temp">3</div>
+                    </div>
+                </div>
+            </div>
+            <div class="main__right">
+                <div class="map">
+                    <div class="map__mask"></div>
+                    <div class="map__triangle"></div>
+                </div>
+                <div class="coordinates">
+                    <div><span>Latitude: </span><span class="latitude">cannot determine</span>
+                    </div>
+                    <div><span>Longitude: </span><span class="longitude">cannot determine</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </body>
