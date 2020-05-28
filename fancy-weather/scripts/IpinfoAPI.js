@@ -1,25 +1,26 @@
 export default class IpinfoAPI {
+    constructor() {
+        this.json = 0;
+        this.city = 0;
+    }
+
     async getInfo() {
         const responce = await fetch(`https://ipinfo.io?token=cb17f80674ecf7`);
-        const json = await responce.json();
-        // const json = await responce.text();
-        // alert(json)
-        return json;
+        this.json = await responce.json();
+        return this.json;
     }
 
-    async getCoords() {
-        const responce = await this.getInfo();
-        return responce.loc.split(',');
+    getCoords() {
+        return this.json.loc.split(',');
     }
 
-    async getCity() {
-        const responce = await this.getInfo();
-        // alert(responce.city)
-        return responce.city;
+    getCity() {
+        this.city = this.json.city;
+        return this.city;
     }
 
-    async updateCoords(lat, long) {
-        let latlong = await this.getCoords();
+    updateCoords(lat, long) {
+        let latlong = this.getCoords();
         lat.innerHTML = latlong[0];
         long.innerHTML = latlong[1];
         return latlong;
