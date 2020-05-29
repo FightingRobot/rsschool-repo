@@ -224,7 +224,14 @@ textarea {
   display: flex;
   font-size: 306px;
   margin-bottom: -35px;
-  margin-right: 92px;
+  margin-right: 50px;
+  position: relative;
+}
+
+.temp-info__now .temp-info__img-now {
+  position: absolute;
+  top: -50px;
+  right: -150px;
 }
 
 .temp-info__overcast {
@@ -239,6 +246,10 @@ textarea {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+.temp-info__overcast span {
+  margin-top: 8px;
 }
 
 .temp-info__temp-days {

@@ -26,7 +26,14 @@
     display: flex;
     font-size: 306px;
     margin-bottom: -35px;
-    margin-right: 92px;
+    margin-right: 50px;
+    position: relative;
+
+    .temp-info__img-now {
+        position: absolute;
+        top: -50px;
+        right: -150px;
+    }
 }
 
 .temp-info__overcast {
@@ -34,6 +41,10 @@
     flex-direction: column;
     font-size: 22px;
     justify-content: flex-end;
+
+    span {
+        margin-top: 8px;
+    }
 }
 
 .temp-info__temp-days {

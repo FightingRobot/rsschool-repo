@@ -1,11 +1,18 @@
 import IpinfoAPI from './IpinfoAPI.js';
 import Geocode from './GeocodingAPI.js';
 import Clock from './Clock.js';
+import Weather from './WeatherAPI.js';
 
 const latitude = document.querySelector('.latitude');
 const longitude = document.querySelector('.longitude');
 const placeSelector = document.querySelector('.temp-info__country');
 const dateSelector = document.querySelector('.temp-info__date');
+
+const tempNow = document.querySelector('.temp-info__temp-now');
+const tempImgNow = document.querySelector('.temp-info__img-now');
+const feelsLikeNow = document.querySelector('.temp-info__feels-like_now');
+const windNow = document.querySelector('.temp-info__wind-speed_now');
+const humidityNow = document.querySelector('.temp-info__humidity_now');
 
 class Controller {
 
@@ -13,6 +20,7 @@ class Controller {
     this.ipinfoAPI = new IpinfoAPI();
     this.geocode = new Geocode();
     this.clock = new Clock();
+    this.weather = new Weather();
   }
 
   async makeGetInfoRequest() {
@@ -38,6 +46,18 @@ class Controller {
     this.clock.startTimer(dateSelector);
     return timestamp;
   };
+
+  async makeWeatherRequest() {
+    await this.weather.getInfo(this.ipinfoAPI.city, 'en');
+  }
+
+  setWeather() {
+    tempNow.innerHTML = `${Math.round(this.weather.getTemp())}`;
+    feelsLikeNow.innerHTML = `${this.weather.getFeelslike()}&deg;`;
+    windNow.innerHTML = `${this.weather.getWind()} m/s`;
+    humidityNow.innerHTML = `${this.weather.getHumidity()}%`;
+    tempImgNow.src = this.weather.getIcon();
+  }
 }
 
 let controller = new Controller();
@@ -48,6 +68,9 @@ async function allSystemsActivate() {
 
   await controller.makeGeocodeRequest();
   await controller.setPlace();
+
+  await controller.makeWeatherRequest()
+  controller.setWeather();
 
   await controller.setDate()
 }
