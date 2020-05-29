@@ -14,6 +14,9 @@ const feelsLikeNow = document.querySelector('.temp-info__feels-like_now');
 const windNow = document.querySelector('.temp-info__wind-speed_now');
 const humidityNow = document.querySelector('.temp-info__humidity_now');
 
+const tempDays = document.querySelectorAll('.temp-info__temp');
+const iconDays = document.querySelectorAll('.temp-info__img');
+
 class Controller {
 
   constructor() {
@@ -51,12 +54,20 @@ class Controller {
     await this.weather.getInfo(this.ipinfoAPI.city, 'en');
   }
 
-  setWeather() {
+  setTodayWeather() {
     tempNow.innerHTML = `${Math.round(this.weather.getTemp())}`;
     feelsLikeNow.innerHTML = `${this.weather.getFeelslike()}&deg;`;
     windNow.innerHTML = `${this.weather.getWind()} m/s`;
     humidityNow.innerHTML = `${this.weather.getHumidity()}%`;
     tempImgNow.src = this.weather.getIcon();
+  }
+
+  setOtherWeather() {
+    for (let i = 0; i < 3; i++) {
+      tempDays[i].innerHTML = `${Math.round(this.weather.getTemp(i + 1))}&deg;`;
+      iconDays[i].src = this.weather.getIcon(i + 1, 2);
+      // alert(this.weather.getIcon(i + 1))
+    }
   }
 }
 
@@ -70,9 +81,10 @@ async function allSystemsActivate() {
   await controller.setPlace();
 
   await controller.makeWeatherRequest()
-  controller.setWeather();
+  controller.setTodayWeather();
+  controller.setOtherWeather();
 
-  await controller.setDate()
+  await controller.setDate();
 }
 
 allSystemsActivate();

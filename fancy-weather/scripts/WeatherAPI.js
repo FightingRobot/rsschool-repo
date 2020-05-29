@@ -17,8 +17,8 @@ export default class Weather {
         return this.json;
     }
 
-    getTemp() {
-        return this.json.list[0].main.temp;
+    getTemp(day = 0) {
+        return this.json.list[day].main.temp;
     }
 
     getFeelslike() {
@@ -33,7 +33,7 @@ export default class Weather {
         return this.json.list[0].wind.speed;
     }
 
-    getIcon() {
-        return `http://openweathermap.org/img/wn/${this.json.list[0].weather[0].icon}@4x.png`;
+    getIcon(day = 0, size = 4) {
+        return `http://openweathermap.org/img/wn/${this.json.list[day].weather[0].icon}@${size}x.png`;
     }
 }

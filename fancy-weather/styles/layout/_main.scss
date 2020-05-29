@@ -57,8 +57,19 @@
     flex-direction: column;
 }
 
+.temp-info__img {
+    position: absolute;
+    top: -25px;
+    right: -75px;
+}
+
 .temp-info__day {
     font-size: 22px;
+}
+
+.temp-info__info {
+    position: relative;
+    width: 100px;
 }
 
 .temp-info__temp {
