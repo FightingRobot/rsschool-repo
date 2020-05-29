@@ -8,6 +8,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet">
+
     <link rel="stylesheet" href="styles/main.css">
     <script src="./scripts/main.js" type="module"></script>
 </head>
@@ -79,7 +82,7 @@
             </div>
             <div class="main__right">
                 <div class="map">
-                    <div class="map__mask"></div>
+                    <div class="map__mask" id='map'></div>
                     <div class="map__triangle"></div>
                 </div>
                 <div class="coordinates">

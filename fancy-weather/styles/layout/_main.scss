@@ -11,6 +11,7 @@
 
 .temp-info__country {
     font-size: 44px;
+    white-space: nowrap;
 }
 
 .temp-info__date {
@@ -59,8 +60,8 @@
 
 .temp-info__img {
     position: absolute;
-    top: -25px;
-    right: -75px;
+    top: -4px;
+    right: -89px;
 }
 
 .temp-info__day {
@@ -82,13 +83,14 @@
     flex-direction: column;
     justify-content: flex-end;
     width: 40%;
+    align-items: flex-end;
 }
 
 .map {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     // background-color: white;
     justify-content: flex-end;
     overflow: hidden;
@@ -113,7 +115,7 @@
     height: 0;
     border-style: solid;
     border-width: 0 50px 50px 0;
-    border-color: transparent $white transparent transparent;
+    border-color: transparent rgb(239, 233, 225) transparent transparent;
 }
 
 .coordinates {

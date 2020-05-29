@@ -1,6 +1,7 @@
 export default class Clock {
     constructor() {
         this.date = 0;
+        this.timer = 0;
     }
 
     setClock(selector) {
@@ -9,7 +10,8 @@ export default class Clock {
     }
 
     startTimer(selector) {
-        let timerId = setInterval(() => this.setClock(selector), 1000);
+        clearInterval(this.timer);
+        this.timer = setInterval(() => this.setClock(selector), 1000);
         this.setClock(selector);
     }
 }

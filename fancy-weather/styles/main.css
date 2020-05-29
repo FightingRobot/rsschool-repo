@@ -83,8 +83,8 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  -webkit-backdrop-filter: blur(5px) brightness(40%);
-          backdrop-filter: blur(5px) brightness(40%);
+  -webkit-backdrop-filter: brightness(40%);
+          backdrop-filter: brightness(40%);
 }
 
 h1 {
@@ -205,6 +205,7 @@ textarea {
 
 .temp-info__country {
   font-size: 44px;
+  white-space: nowrap;
 }
 
 .temp-info__date {
@@ -273,8 +274,8 @@ textarea {
 
 .temp-info__img {
   position: absolute;
-  top: -25px;
-  right: -75px;
+  top: -4px;
+  right: -89px;
 }
 
 .temp-info__day {
@@ -303,6 +304,9 @@ textarea {
       -ms-flex-pack: end;
           justify-content: flex-end;
   width: 40%;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 .map {
@@ -313,8 +317,8 @@ textarea {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
@@ -339,7 +343,7 @@ textarea {
   height: 0;
   border-style: solid;
   border-width: 0 50px 50px 0;
-  border-color: transparent white transparent transparent;
+  border-color: transparent #efe9e1 transparent transparent;
 }
 
 .coordinates {
