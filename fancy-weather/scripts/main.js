@@ -71,11 +71,10 @@ class Controller {
     if (prevLang === null) {
       localStorage.setItem('lang', 'en');
       this.lang = 'en';
+      prevLang = this.lang;
     }
 
-    if (prevLang !== 'en') {
-      this.setLang(prevLang);
-    }
+    this.setLang(prevLang);
   }
 
   changeLang() {
@@ -101,6 +100,12 @@ class Controller {
   loadDegrees() {
     this.temp = localStorage.getItem('temp');
 
+    if (this.temp === 'imperial') {
+      btnSwitch.innerHTML = 'F';
+    } else {
+      btnSwitch.innerHTML = 'M';
+    }
+
     if (this.temp === null) {
       localStorage.setItem('temp', 'metric');
       this.temp = 'metric';
@@ -111,9 +116,11 @@ class Controller {
     if (this.temp === 'metric') {
       localStorage.setItem('temp', 'imperial');
       this.temp = 'imperial';
+      btnSwitch.innerHTML = 'F';
     } else {
       localStorage.setItem('temp', 'metric');
       this.temp = 'metric'
+      btnSwitch.innerHTML = 'M';
     }
 
     await this.makeWeatherRequest();
@@ -259,13 +266,8 @@ class Controller {
   async findPlace() {
     event.preventDefault();
     this.searchValue = searchFormInput.value;
-    try {
-      await this.start(this.searchValue);
-      await this.translate('en', this.lang);
-    } catch {
-      alert('ass')
-    }
-
+    await this.start(this.searchValue);
+    await this.translate('en', this.lang);
   }
 }
 
