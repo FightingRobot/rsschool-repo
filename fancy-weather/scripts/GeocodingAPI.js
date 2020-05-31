@@ -13,7 +13,7 @@ export default class Geocode {
         const city = this.json.results[0]['formatted'].split(',')[0];
         // const city = this.json.results[0]['components'].city;
         const country = this.json.results[0]['components'].country;
-        return [city, country].join(', ');
+        return [city, country].join(' ');
     }
 
     getTimestamp() {
@@ -29,8 +29,15 @@ export default class Geocode {
         return [lat, lng];
     }
 
+    getVisualCoords() {
+        const lat = this.json.results[0].annotations.DMS.lat;
+        const lng = this.json.results[0].annotations.DMS.lng;
+        // alert(lng)
+        return [`${lat.slice(0, 8)} ${lat.slice(-1)}`, `${lng.slice(0, 8)} ${lng.slice(-1)}`];
+    }
+
     updateCoords(lat, long) {
-        let latlong = this.getCoords();
+        let latlong = this.getVisualCoords();
         lat.innerHTML = latlong[0];
         long.innerHTML = latlong[1];
         return latlong;

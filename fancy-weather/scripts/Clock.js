@@ -12,7 +12,7 @@ export default class Clock {
         const mins = this.date.getMinutes();
         const secs = this.date.getSeconds();
         // selector.innerHTML = String(this.date).slice(15, 25);
-        selector.innerHTML = `${dayW} ${month} ${dayM} ${String(this.date).slice(0, 25)}`;
+        selector.innerHTML = `${String(this.date).slice(15, 25)}`;
         // alert(this.date.getFullYear());
         // alert(this.date.getDate());
         this.date.setSeconds(this.date.getSeconds() + 1);

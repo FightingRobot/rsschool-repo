@@ -316,10 +316,16 @@ textarea {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-size: 306px;
+  font-size: 258px;
   margin-bottom: -35px;
   margin-right: 50px;
   position: relative;
+}
+
+@media screen and (min-width: 1021px) {
+  .temp-info__now {
+    margin-top: 25px;
+  }
 }
 
 @media screen and (max-width: 1020px) {
@@ -464,7 +470,13 @@ textarea {
 }
 
 .temp-info__temp {
-  font-size: 80px;
+  font-size: 66px;
+}
+
+@media screen and (min-width: 1021px) {
+  .temp-info__temp {
+    margin-top: 15px;
+  }
 }
 
 @media screen and (max-width: 1020px) {

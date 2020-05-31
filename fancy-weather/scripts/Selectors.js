@@ -4,6 +4,7 @@ const selectors = {
     day2: document.querySelector('#day2'),
     day3: document.querySelector('#day3'),
     month: document.querySelector('#month'),
+    dayMonth: document.querySelector('#dayMonth'),
     lat: document.querySelector('#lat'),
     lng: document.querySelector('#lng'),
     state: document.querySelector('#state'),

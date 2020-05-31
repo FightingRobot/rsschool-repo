@@ -3,12 +3,13 @@ import Geocode from './GeocodingAPI.js';
 import Clock from './Clock.js';
 import Weather from './WeatherAPI.js';
 import Unsplash from './UnsplashAPI.js';
-import EnglishLang from './translation.js'
+import EnglishLang from './translation.js';
+import selectors from './Selectors.js';
 
 const latitude = document.querySelector('.latitude');
 const longitude = document.querySelector('.longitude');
 const placeSelector = document.querySelector('.temp-info__country');
-const dateSelector = document.querySelector('.temp-info__date');
+const timeSelector = document.querySelector('#time');
 
 const searchFormSend = document.querySelector('.search-form__send');
 const searchFormInput = document.querySelector('.search-form__input');
@@ -32,6 +33,8 @@ class Controller {
     this.clock = new Clock();
     this.weather = new Weather();
     this.unsplash = new Unsplash();
+    this.englishLang = new EnglishLang();
+    this.selectors = selectors;
 
     this.searchValue = 0;
     this.picNum = 0;
@@ -55,10 +58,37 @@ class Controller {
     placeSelector.innerHTML = await this.geocode.getFormattedPlace();
   };
 
+  setWeekDay(date) {
+    const days = this.englishLang.days;
+    const day = date.getDay();
+    const dayMonth = date.getDate();
+
+    for (let i = 0; i < 4; i += 1) {
+      this.selectors[`day${i + day}`].innerHTML = days[i + day].toUpperCase();
+
+      if (i === 0) {
+        this.selectors[`day${i + day}`].innerHTML = days[i + day].slice(0, 3);
+        this.selectors.dayMonth.innerHTML = dayMonth;
+      }
+    }
+  }
+
+  setMonth(date) {
+    const months = this.englishLang.months;
+    const month = date.getMonth();
+
+    this.selectors.month.innerHTML = months[month];
+  }
+
   setDate() {
     const timestamp = this.geocode.getTimestamp();
-    this.clock.date = new Date(timestamp);
-    this.clock.startTimer(dateSelector);
+    const date = new Date(timestamp);
+
+    this.setWeekDay(date);
+    this.setMonth(date);
+
+    this.clock.date = date;
+    this.clock.startTimer(timeSelector);
     return timestamp;
   };
 
