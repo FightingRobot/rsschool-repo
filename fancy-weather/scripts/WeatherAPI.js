@@ -13,6 +13,13 @@ export default class Weather {
         return this.json.list[day].main.temp;
     }
 
+    getState() {
+        // for (let a in this.json.list[0].weather[0]) {
+        //     alert(a)
+        // }
+        return this.json.list[0].weather[0].main.toUpperCase();
+    }
+
     getFeelslike() {
         return this.json.list[0].main.feels_like;
     }

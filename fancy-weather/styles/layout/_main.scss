@@ -1,17 +1,31 @@
 .main__content {
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+        width: 100%;
+    }
 }
 
 .main__left {
     width: 600px;
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
 }
 
 .temp-info__country {
     font-size: 44px;
     white-space: nowrap;
+
+    @media screen and (max-width: 1020px) {
+        font-size: 25px;
+        white-space: wrap;
+    }
 }
 
 .temp-info__date {
@@ -21,6 +35,16 @@
 .temp-info__temp-today {
     display: flex;
     margin-bottom: 50px;
+
+    @media screen and (max-width: 1020px) {
+        // justify-content: space-between;
+        height: 150px;
+    }
+
+    @media screen and (max-width: 767px) {
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
 }
 
 .temp-info__now {
@@ -29,15 +53,40 @@
     margin-bottom: -35px;
     margin-right: 50px;
     position: relative;
+    
 
-    .temp-info__img-now {
-        position: absolute;
-        top: -50px;
-        right: -150px;
+    @media screen and (max-width: 1020px) {
+        font-size: 150px;
+        margin-right: 10px;
+        height: 150px;
+    }
+
+    @media screen and (max-width: 767px) {
+        font-size: 100px;
+        margin-top: 25px;
     }
 }
 
-.temp-info__overcast {
+.temp-info__img-now {
+    margin-bottom: -15px;
+    margin-top: -40px;
+    width: 200px;
+    height: 200px;
+
+    @media screen and (max-width: 1020px) {
+        width: 150px;
+        height: 150px;
+        margin-bottom: -40px;
+    }
+
+    @media screen and (max-width: 767px) {
+        width: 100px;
+        height: 100px;
+        // margin-bottom: -40px;
+    }
+}
+
+.temp-info__forecast {
     display: flex;
     flex-direction: column;
     font-size: 22px;
@@ -45,6 +94,26 @@
 
     span {
         margin-top: 8px;
+    }
+
+    @media screen and (max-width: 1020px) {
+        font-size: 18px;
+    }
+
+    @media screen and (max-width: 767px) {
+        font-size: 10px;
+    }
+}
+
+.temp-info__overcast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media screen and (max-width: 1020px) {
+        font-size: 18px;
+        flex-direction: row;
+        // margin-left: 20px;
     }
 }
 
@@ -59,22 +128,45 @@
 }
 
 .temp-info__img {
-    position: absolute;
-    top: -4px;
-    right: -89px;
+    // position: absolute;
+    // top: -4px;
+    // right: -97px;
+
+    @media screen and (max-width: 1020px) {
+        width: 50px;
+        height: 50px;
+    }
+
+    @media screen and (max-width: 767px) {
+        width: 50px;
+        height: 50px;
+    }
 }
 
 .temp-info__day {
     font-size: 22px;
+
+    @media screen and (max-width: 767px) {
+        font-size: 15px;
+    }
 }
 
 .temp-info__info {
     position: relative;
     width: 100px;
+    display: flex;
 }
 
 .temp-info__temp {
     font-size: 80px;
+
+    @media screen and (max-width: 1020px) {
+        font-size: 60px;
+    }
+
+    @media screen and (max-width: 767px) {
+        font-size: 40px;
+    }
 }
 
 .main__right {
@@ -84,6 +176,14 @@
     justify-content: flex-end;
     width: 40%;
     align-items: flex-end;
+
+    @media screen and (max-width: 1020px) {
+        margin-left: 0;
+    }
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
 }
 
 .map {
@@ -94,6 +194,11 @@
     // background-color: white;
     justify-content: flex-end;
     overflow: hidden;
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+        height: 200px;
+    }
 }
 
 .map__mask {
@@ -104,6 +209,10 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-bottom-left-radius: 8px;
+
+    @media screen and (max-width: 767px) {
+        border-bottom-right-radius: 8px;
+    }
 }
 
 .map__triangle {
@@ -116,9 +225,28 @@
     border-style: solid;
     border-width: 0 50px 50px 0;
     border-color: transparent rgb(239, 233, 225) transparent transparent;
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
 }
 
 .coordinates {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     text-align: end;
     font-size: 20px;
+
+    @media screen and (max-width: 1020px) {
+        font-size: 15px;
+    }
+
+    @media screen and (max-width: 767px) {
+        font-size: 12px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
+
+// 767

@@ -5,7 +5,16 @@ export default class Clock {
     }
 
     setClock(selector) {
-        selector.innerHTML = String(this.date).slice(0, 25);
+        const dayW = this.date.getDay();
+        const month = this.date.getMonth();
+        const dayM = this.date.getDate();
+        const hours = this.date.getHours();
+        const mins = this.date.getMinutes();
+        const secs = this.date.getSeconds();
+        // selector.innerHTML = String(this.date).slice(15, 25);
+        selector.innerHTML = `${dayW} ${month} ${dayM} ${String(this.date).slice(0, 25)}`;
+        // alert(this.date.getFullYear());
+        // alert(this.date.getDate());
         this.date.setSeconds(this.date.getSeconds() + 1);
     }
 

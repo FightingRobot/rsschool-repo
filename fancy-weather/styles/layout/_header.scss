@@ -3,12 +3,35 @@
     justify-content: space-between;
     padding-top: 20px;
     padding-bottom: 20px;
+
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+        width: 100%;
+    }
 }
 
-.header__left,
+.header__left {
+    display: flex;
+    width: 30%;
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+        margin-bottom: 10px;
+        justify-content: space-between;
+    }
+}
+
 .header__right {
     display: flex;
     width: 30%;
+
+    @media screen and (max-width: 1020px) {
+        width: 50%;
+    }
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
 }
 
 .search-form {
@@ -31,6 +54,7 @@
     font-size: 18px;
     color: $white;
     padding: 10px;
+    padding-right: 100px;
 
     &:focus {
         opacity: 1;
@@ -48,4 +72,14 @@
     border-bottom-left-radius: 0 !important;
     margin-right: 0 !important;
     width: 100px !important;
+}
+
+.btn__pic {
+display: flex;
+justify-content: center;
+align-items: center;
+color: red;
+    img {
+        width: 50%;
+    }
 }

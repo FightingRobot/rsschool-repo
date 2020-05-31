@@ -10,20 +10,16 @@ export default class Geocode {
     }
 
     getFormattedPlace() {
-        const results = this.json.results[0]['formatted'].split(',');
-        return [results[0], results[1]].join(', ');
+        const city = this.json.results[0]['formatted'].split(',')[0];
+        // const city = this.json.results[0]['components'].city;
+        const country = this.json.results[0]['components'].country;
+        return [city, country].join(', ');
     }
 
     getTimestamp() {
-        // alert(this.json['timestamp']['created_http']);
-        // return this.json['timestamp']['created_http'];
         const date1 = new Date();
-        // alert(ass1);
         const date2 = this.json.results[0].annotations.timezone.offset_sec / 3600;
-        // alert(this.json.results[0].annotations.timezone.offset_sec);
-        // return [ass1, ass2];
-        // alert(date1.setHours(date1.getUTCHours() + date2))
-        return date1.setHours(date1.getUTCHours() + date2);
+        return date1.setUTCHours(date1.getUTCHours() + date2 - 3);
         // return this.json.results[0].annotations.timezone.offset_sec / 3600;
     }
 

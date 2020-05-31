@@ -2,6 +2,8 @@ import IpinfoAPI from './IpinfoAPI.js';
 import Geocode from './GeocodingAPI.js';
 import Clock from './Clock.js';
 import Weather from './WeatherAPI.js';
+import Unsplash from './UnsplashAPI.js';
+import EnglishLang from './translation.js'
 
 const latitude = document.querySelector('.latitude');
 const longitude = document.querySelector('.longitude');
@@ -10,8 +12,10 @@ const dateSelector = document.querySelector('.temp-info__date');
 
 const searchFormSend = document.querySelector('.search-form__send');
 const searchFormInput = document.querySelector('.search-form__input');
+const refreshButton = document.querySelector('.btn__pic');
 
 const tempNow = document.querySelector('.temp-info__temp-now');
+const state = document.querySelector('#state');
 const tempImgNow = document.querySelector('.temp-info__img-now');
 const feelsLikeNow = document.querySelector('.temp-info__feels-like_now');
 const windNow = document.querySelector('.temp-info__wind-speed_now');
@@ -27,8 +31,10 @@ class Controller {
     this.geocode = new Geocode();
     this.clock = new Clock();
     this.weather = new Weather();
+    this.unsplash = new Unsplash();
 
     this.searchValue = 0;
+    this.picNum = 0;
   }
 
   async makeGetInfoRequest() {
@@ -61,6 +67,7 @@ class Controller {
   }
 
   setTodayWeather() {
+    state.innerHTML = `${this.weather.getState()}`;
     tempNow.innerHTML = `${Math.round(this.weather.getTemp())}`;
     feelsLikeNow.innerHTML = `${this.weather.getFeelslike()}&deg;`;
     windNow.innerHTML = `${this.weather.getWind()} m/s`;
@@ -87,6 +94,20 @@ class Controller {
     const marker = new mapboxgl.Marker()
       .setLngLat(this.geocode.getCoords().reverse())
       .addTo(map);
+  }
+
+  async makeUnsplashRequest() {
+    this.picNum = 0;
+    await this.unsplash.getInfo(this.searchValue);
+  }
+
+  setBackground() {
+    document.body.style.backgroundImage = `url(${this.unsplash.getPicture(this.picNum)})`;
+  }
+
+  changeBackground() {
+    this.picNum += 1;
+    this.setBackground();
   }
 
   async start(place = 'UserLocation') {
@@ -121,6 +142,9 @@ class Controller {
     this.setDate();
 
     this.createMap();
+
+    // await this.makeUnsplashRequest();
+    // await this.setBackground();
   }
 
   async findPlace() {
@@ -152,3 +176,4 @@ controller.start();
 
 
 searchFormSend.onclick = controller.findPlace.bind(controller);
+refreshButton.onclick = controller.changeBackground.bind(controller);

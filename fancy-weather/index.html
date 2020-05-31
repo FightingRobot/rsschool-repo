@@ -11,6 +11,8 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet">
 
+
+    <script src="https://use.fontawesome.com/02c757d8fc.js"></script>
     <link rel="stylesheet" href="styles/main.css">
     <script src="./scripts/main.js" type="module"></script>
 </head>
@@ -20,7 +22,7 @@
         <div class="content header__content">
             <div class="header__left">
                 <div class="btn btn__pic">
-
+                    <img src="./assets/refresh.svg" alt="">
                 </div>
                 <div class="btn btn__lang">
                     <span>EN</span>
@@ -42,37 +44,43 @@
         <div class="content main__content">
             <div class="main__left temp-info">
                 <div class="temp-info__country"></div>
-                <div class="temp-info__date">Mon 28 October 17:23:12</div>
+                <div class="temp-info__date">
+                    <span id='day0'></span>
+                    <span id='month'></span>
+                    Mon 28 October 17:23:12
+                </div>
                 <div class="temp-info__temp-today">
                     <div class="temp-info__now">
                         <span class="temp-info__temp-now">10</span>
-                        <img class="temp-info__img-now" src="" alt="">
-
                     </div>
                     <div class="temp-info__overcast">
-                        <span>OVERCAST</span>
-                        <span>FEELS LIKE: <span class="temp-info__feels-like_now"></span></span>
-                        <span>WIND: <span class="temp-info__wind-speed_now"></span></span>
-                        <span>HUMIDITY: <span class="temp-info__humidity_now"></span></span>
+                        <img class="temp-info__img-now" src="" alt="">
+                        <div class="temp-info__forecast">
+                            <span id='state'>OVERCAST</span>
+                            <span><span id='feels'>FEELS LIKE: </span><span
+                                    class="temp-info__feels-like_now"></span></span>
+                            <span><span id='wind'>WIND: </span><span class="temp-info__wind-speed_now"></span></span>
+                            <span><span id='humid'>HUMIDITY: </span><span class="temp-info__humidity_now"></span></span>
+                        </div>
                     </div>
                 </div>
                 <div class="temp-info__temp-days">
                     <div class="temp-info__temp-day">
-                        <div class="temp-info__day">TUESDAY</div>
+                        <div id='day1' class="temp-info__day">TUESDAY</div>
                         <div class="temp-info__info">
                             <div class="temp-info__temp">7</div>
                             <img class="temp-info__img" src="" alt="">
                         </div>
                     </div>
                     <div class="temp-info__temp-day">
-                        <div class="temp-info__day">WEDNESDAY</div>
+                        <div id='day2' class="temp-info__day">WEDNESDAY</div>
                         <div class="temp-info__info">
                             <div class="temp-info__temp">6</div>
                             <img class="temp-info__img" src="" alt="">
                         </div>
                     </div>
                     <div class="temp-info__temp-day">
-                        <div class="temp-info__day">THURSDAY</div>
+                        <div id='day3' class="temp-info__day">THURSDAY</div>
                         <div class="temp-info__info">
                             <div class="temp-info__temp">3</div>
                             <img class="temp-info__img" src="" alt="">
@@ -80,15 +88,16 @@
                     </div>
                 </div>
             </div>
+
             <div class="main__right">
                 <div class="map">
                     <div class="map__mask" id='map'></div>
                     <div class="map__triangle"></div>
                 </div>
                 <div class="coordinates">
-                    <div><span>Latitude: </span><span class="latitude">cannot determine</span>
+                    <div><span id="lat">Latitude: </span><span class="latitude">cannot determine</span>
                     </div>
-                    <div><span>Longitude: </span><span class="longitude">cannot determine</span>
+                    <div><span id="lng">Longitude: </span><span class=" longitude">cannot determine</span>
                     </div>
                 </div>
             </div>
