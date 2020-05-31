@@ -3,7 +3,7 @@ import Geocode from './GeocodingAPI.js';
 import Clock from './Clock.js';
 import Weather from './WeatherAPI.js';
 import Unsplash from './UnsplashAPI.js';
-import Translation from './Translation.js';
+import YandexAPI from './YandexAPI.js';
 import selectors from './Selectors.js';
 
 const latitude = document.querySelector('.latitude');
@@ -30,6 +30,21 @@ const humidityNow = document.querySelector('.temp-info__humidity_now');
 const tempDays = document.querySelectorAll('.temp-info__temp');
 const iconDays = document.querySelectorAll('.temp-info__img');
 
+const translateSelectors = {
+  day0: document.querySelector('#day0'),
+  day1: document.querySelector('#day1'),
+  day2: document.querySelector('#day2'),
+  day3: document.querySelector('#day3'),
+  month: document.querySelector('#month'),
+  lat: document.querySelector('#lat'),
+  lng: document.querySelector('#lng'),
+  state: document.querySelector('#state'),
+  feels: document.querySelector('#feels'),
+  wind: document.querySelector('#wind'),
+  humid: document.querySelector('#humid'),
+  country: document.querySelector('.temp-info__country'),
+}
+
 class Controller {
 
   constructor() {
@@ -38,25 +53,26 @@ class Controller {
     this.clock = new Clock();
     this.weather = new Weather();
     this.unsplash = new Unsplash();
-    this.translation = new Translation();
+    this.yandexAPI = new YandexAPI();
     this.selectors = selectors;
 
     this.searchValue = 0;
     this.picNum = 0;
-    this.lang = 0;
+    this.lang = 'en';
     this.temp = 0;
   }
 
   loadLang() {
-    this.lang = localStorage.getItem('lang');
+    let prevLang = localStorage.getItem('lang');
+    // this.lang = localStorage.getItem('lang');
 
-    if (this.lang === null) {
+    if (prevLang === null) {
       localStorage.setItem('lang', 'en');
       this.lang = 'en';
     }
 
-    if (this.lang !== 'en') {
-      this.setLang(this.lang);
+    if (prevLang !== 'en') {
+      this.setLang(prevLang);
     }
   }
 
@@ -66,10 +82,16 @@ class Controller {
 
   setLang(lang) {
     if (this.lang !== lang) {
-      // translate(this.lang, lang)
-      this.lang = lang;
-      localStorage.setItem('lang', lang);
+      this.translate(this.lang, lang)
     }
+  }
+
+  async translate(lang1, lang2) {
+    for (let a of Object.values(translateSelectors)) {
+      a.innerHTML = await this.yandexAPI.translate(a.innerHTML, lang1, lang2);
+    }
+    this.lang = lang2;
+    localStorage.setItem('lang', lang2);
   }
 
   loadDegrees() {
@@ -103,7 +125,7 @@ class Controller {
 
   async makeGeocodeRequest() {
     // alert(this.lang)
-    await this.geocode.getInfo(this.searchValue, this.lang);
+    await this.geocode.getInfo(this.searchValue, 'en');
   }
 
   setCoords() {
@@ -123,7 +145,7 @@ class Controller {
       this.selectors[`day${i + day}`].innerHTML = days[i + day].toUpperCase();
 
       if (i === 0) {
-        this.selectors[`day${i + day}`].innerHTML = days[i + day].slice(0, 3);
+        // this.selectors[`day${i + day}`].innerHTML = days[i + day].slice(0, 3);
         this.selectors.dayMonth.innerHTML = dayMonth;
       }
     }
@@ -149,7 +171,7 @@ class Controller {
   };
 
   async makeWeatherRequest() {
-    await this.weather.getInfo(this.searchValue, this.lang, this.temp);
+    await this.weather.getInfo(this.searchValue, 'en', this.temp);
   }
 
   setTodayWeather() {
@@ -213,7 +235,6 @@ class Controller {
     // } catch {
     //   alert('MISTAKE');
     // }
-    this.loadLang();
     this.loadDegrees();
 
     if (place === 'UserLocation') {
@@ -232,6 +253,8 @@ class Controller {
 
     this.createMap();
 
+    this.loadLang();
+
     // await this.makeUnsplashRequest();
     // await this.setBackground();
   }
@@ -240,6 +263,7 @@ class Controller {
     event.preventDefault();
     this.searchValue = searchFormInput.value;
     await this.start(this.searchValue);
+    await this.translate('en', this.lang);
   }
 }
 
