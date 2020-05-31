@@ -120,6 +120,32 @@ textarea {
   padding: 10px;
 }
 
+.loadscreen {
+  display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  z-index: 9999;
+  font-size: 100px;
+  color: black;
+}
+
+.loadscreen_active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .header__content {
   display: -webkit-box;
   display: -ms-flexbox;

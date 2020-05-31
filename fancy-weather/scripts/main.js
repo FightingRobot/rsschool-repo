@@ -29,6 +29,7 @@ const humidityNow = document.querySelector('.temp-info__humidity_now');
 
 const tempDays = document.querySelectorAll('.temp-info__temp');
 const iconDays = document.querySelectorAll('.temp-info__img');
+const load = document.querySelector('.loadscreen');
 
 const translateSelectors = {
   day0: document.querySelector('#day0'),
@@ -43,6 +44,7 @@ const translateSelectors = {
   wind: document.querySelector('#wind'),
   humid: document.querySelector('#humid'),
   country: document.querySelector('.temp-info__country'),
+  searchButton: document.querySelector('.search-form__send'),
 }
 
 class Controller {
@@ -60,11 +62,11 @@ class Controller {
     this.picNum = 0;
     this.lang = 'en';
     this.temp = 0;
+    this.date = 0;
   }
 
   loadLang() {
     let prevLang = localStorage.getItem('lang');
-    // this.lang = localStorage.getItem('lang');
 
     if (prevLang === null) {
       localStorage.setItem('lang', 'en');
@@ -87,11 +89,13 @@ class Controller {
   }
 
   async translate(lang1, lang2) {
+    load.style.display = 'flex';
     for (let a of Object.values(translateSelectors)) {
       a.innerHTML = await this.yandexAPI.translate(a.innerHTML, lang1, lang2);
     }
     this.lang = lang2;
     localStorage.setItem('lang', lang2);
+    load.style.display = 'none';
   }
 
   loadDegrees() {
@@ -124,7 +128,6 @@ class Controller {
   }
 
   async makeGeocodeRequest() {
-    // alert(this.lang)
     await this.geocode.getInfo(this.searchValue, 'en');
   }
 
@@ -145,7 +148,6 @@ class Controller {
       this.selectors[`day${i + day}`].innerHTML = days[i + day].toUpperCase();
 
       if (i === 0) {
-        // this.selectors[`day${i + day}`].innerHTML = days[i + day].slice(0, 3);
         this.selectors.dayMonth.innerHTML = dayMonth;
       }
     }
@@ -155,12 +157,13 @@ class Controller {
     const months = this.clock.months;
     const month = date.getMonth();
 
-    this.selectors.month.innerHTML = months[month];
+    this.selectors.month.innerHTML = months[month].toUpperCase();
   }
 
   setDate() {
     const timestamp = this.geocode.getTimestamp();
-    const date = new Date(timestamp);
+    this.date = new Date(timestamp);
+    const date = this.date;
 
     this.setWeekDay(date);
     this.setMonth(date);
@@ -220,70 +223,53 @@ class Controller {
 
   async start(place = 'UserLocation') {
 
+    try {
+      load.style.display = 'flex';
+      if (place === 'UserLocation') {
+        await this.makeGetInfoRequest();
+      }
 
-    // try {
-    //   let results = await Promise.all([
-    //     await this.makeGeocodeRequest(),
-    //     await this.makeWeatherRequest(),
-    //     await this.setCoords(),
-    //     await this.setPlace(),
-    //     await this.setDate(),
-    //     await this.setTodayWeather(),
-    //     await this.setOtherWeather(),
-    //     await this.createMap(),
-    //   ]);
-    // } catch {
-    //   alert('MISTAKE');
-    // }
-    this.loadDegrees();
+      let results = await Promise.all([
+        this.loadDegrees(),
 
-    if (place === 'UserLocation') {
-      await this.makeGetInfoRequest();
+        await this.makeGeocodeRequest(),
+
+        await this.makeWeatherRequest(),
+        this.setTodayWeather(),
+        this.setOtherWeather(),
+
+        this.setDate(),
+
+        this.createMap(),
+
+        this.loadLang(),
+
+        await this.makeUnsplashRequest(),
+        await this.setBackground()
+      ]);
+      await this.setCoords();
+      await this.setPlace();
+      load.style.display = 'none';
+    } catch {
+      alert('Please, write correct place');
+      load.style.display = 'none';
     }
-
-    await this.makeGeocodeRequest();
-    await this.setCoords();
-    await this.setPlace();
-
-    await this.makeWeatherRequest()
-    this.setTodayWeather();
-    this.setOtherWeather();
-
-    this.setDate();
-
-    this.createMap();
-
-    this.loadLang();
-
-    // await this.makeUnsplashRequest();
-    // await this.setBackground();
   }
 
   async findPlace() {
     event.preventDefault();
     this.searchValue = searchFormInput.value;
-    await this.start(this.searchValue);
-    await this.translate('en', this.lang);
+    try {
+      await this.start(this.searchValue);
+      await this.translate('en', this.lang);
+    } catch {
+      alert('ass')
+    }
+
   }
 }
 
 let controller = new Controller();
-
-// async function allSystemsActivate() {
-//   await controller.makeGetInfoRequest();
-
-//   await controller.makeGeocodeRequest();
-//   await controller.setCoords();
-//   await controller.setPlace();
-
-//   await controller.makeWeatherRequest()
-//   controller.setTodayWeather();
-//   controller.setOtherWeather();
-
-//   await controller.setDate();
-
-//   controller.createMap();
-// }
 
 controller.start();
 
