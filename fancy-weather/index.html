@@ -24,9 +24,12 @@
                 <div class="btn btn__pic">
                     <img src="./assets/refresh.svg" alt="">
                 </div>
-                <div class="btn btn__lang">
-                    <span>EN</span>
+                <div class="btn__lang">
+                    <span id="engLang">EN</span>
+                    <span id="ruLang">RU</span>
+                    <span id="beLang">BE</span>
                 </div>
+
                 <div class="btn btn__tempscale">
                     <div class="btn_switch"></div>
                 </div>
@@ -45,14 +48,14 @@
             <div class="main__left temp-info">
                 <div class="temp-info__country"></div>
                 <div class="temp-info__date">
-                    <span id='day0'>Mon 28 October 17:23:12</span>
+                    <span id='day0'></span>
                     <span id='dayMonth'></span>
                     <span id='month'></span>
                     <span id='time'></span>
                 </div>
                 <div class="temp-info__temp-today">
                     <div class="temp-info__now">
-                        <span class="temp-info__temp-now">10</span>
+                        <span id="day0deg" class="temp-info__temp-now">10</span>
                     </div>
                     <div class="temp-info__overcast">
                         <img class="temp-info__img-now" src="" alt="">
@@ -69,21 +72,21 @@
                     <div class="temp-info__temp-day">
                         <div id='day1' class="temp-info__day">TUESDAY</div>
                         <div class="temp-info__info">
-                            <div class="temp-info__temp">7</div>
+                            <div id="day1deg" class="temp-info__temp">7</div>
                             <img class="temp-info__img" src="" alt="">
                         </div>
                     </div>
                     <div class="temp-info__temp-day">
                         <div id='day2' class="temp-info__day">WEDNESDAY</div>
                         <div class="temp-info__info">
-                            <div class="temp-info__temp">6</div>
+                            <div id="day2deg" class="temp-info__temp">6</div>
                             <img class="temp-info__img" src="" alt="">
                         </div>
                     </div>
                     <div class="temp-info__temp-day">
                         <div id='day3' class="temp-info__day">THURSDAY</div>
                         <div class="temp-info__info">
-                            <div class="temp-info__temp">3</div>
+                            <div id="day3deg" class="temp-info__temp">3</div>
                             <img class="temp-info__img" src="" alt="">
                         </div>
                     </div>

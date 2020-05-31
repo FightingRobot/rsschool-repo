@@ -3,8 +3,8 @@ export default class Weather {
         this.json = 0;
     }
 
-    async getInfo(place, lang) {
-        const responce = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&lang=${lang}&units=metric&APPID=e1e17f3a37078e2e3cae1a4082e20e57`);
+    async getInfo(place, lang, temp) {
+        const responce = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&lang=${lang}&units=${temp}&APPID=e1e17f3a37078e2e3cae1a4082e20e57`);
         this.json = await responce.json();
         return this.json;
     }
@@ -17,7 +17,7 @@ export default class Weather {
         // for (let a in this.json.list[0].weather[0]) {
         //     alert(a)
         // }
-        return this.json.list[0].weather[0].main.toUpperCase();
+        return this.json.list[0].weather[0].description.toUpperCase();
     }
 
     getFeelslike() {

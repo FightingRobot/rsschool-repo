@@ -3,7 +3,7 @@ import Geocode from './GeocodingAPI.js';
 import Clock from './Clock.js';
 import Weather from './WeatherAPI.js';
 import Unsplash from './UnsplashAPI.js';
-import EnglishLang from './translation.js';
+import Translation from './Translation.js';
 import selectors from './Selectors.js';
 
 const latitude = document.querySelector('.latitude');
@@ -14,6 +14,11 @@ const timeSelector = document.querySelector('#time');
 const searchFormSend = document.querySelector('.search-form__send');
 const searchFormInput = document.querySelector('.search-form__input');
 const refreshButton = document.querySelector('.btn__pic');
+const btnSwitch = document.querySelector('.btn__tempscale');
+
+const btnEngLang = document.querySelector('#engLang');
+const btnRuLang = document.querySelector('#ruLang');
+const btnBeLang = document.querySelector('#beLang');
 
 const tempNow = document.querySelector('.temp-info__temp-now');
 const state = document.querySelector('#state');
@@ -33,11 +38,61 @@ class Controller {
     this.clock = new Clock();
     this.weather = new Weather();
     this.unsplash = new Unsplash();
-    this.englishLang = new EnglishLang();
+    this.translation = new Translation();
     this.selectors = selectors;
 
     this.searchValue = 0;
     this.picNum = 0;
+    this.lang = 0;
+    this.temp = 0;
+  }
+
+  loadLang() {
+    this.lang = localStorage.getItem('lang');
+
+    if (this.lang === null) {
+      localStorage.setItem('lang', 'en');
+      this.lang = 'en';
+    }
+
+    if (this.lang !== 'en') {
+      this.setLang(this.lang);
+    }
+  }
+
+  changeLang() {
+    this.setLang(event.target.textContent.toLowerCase());
+  }
+
+  setLang(lang) {
+    if (this.lang !== lang) {
+      // translate(this.lang, lang)
+      this.lang = lang;
+      localStorage.setItem('lang', lang);
+    }
+  }
+
+  loadDegrees() {
+    this.temp = localStorage.getItem('temp');
+
+    if (this.temp === null) {
+      localStorage.setItem('temp', 'metric');
+      this.temp = 'metric';
+    }
+  }
+
+  async changeDegrees() {
+    if (this.temp === 'metric') {
+      localStorage.setItem('temp', 'imperial');
+      this.temp = 'imperial';
+    } else {
+      localStorage.setItem('temp', 'metric');
+      this.temp = 'metric'
+    }
+
+    await this.makeWeatherRequest();
+    this.setTodayWeather();
+    this.setOtherWeather();
   }
 
   async makeGetInfoRequest() {
@@ -47,7 +102,8 @@ class Controller {
   }
 
   async makeGeocodeRequest() {
-    await this.geocode.getInfo(this.searchValue, 'en');
+    // alert(this.lang)
+    await this.geocode.getInfo(this.searchValue, this.lang);
   }
 
   setCoords() {
@@ -59,7 +115,7 @@ class Controller {
   };
 
   setWeekDay(date) {
-    const days = this.englishLang.days;
+    const days = this.clock.days;
     const day = date.getDay();
     const dayMonth = date.getDate();
 
@@ -74,7 +130,7 @@ class Controller {
   }
 
   setMonth(date) {
-    const months = this.englishLang.months;
+    const months = this.clock.months;
     const month = date.getMonth();
 
     this.selectors.month.innerHTML = months[month];
@@ -93,7 +149,7 @@ class Controller {
   };
 
   async makeWeatherRequest() {
-    await this.weather.getInfo(this.searchValue, 'en');
+    await this.weather.getInfo(this.searchValue, this.lang, this.temp);
   }
 
   setTodayWeather() {
@@ -157,6 +213,9 @@ class Controller {
     // } catch {
     //   alert('MISTAKE');
     // }
+    this.loadLang();
+    this.loadDegrees();
+
     if (place === 'UserLocation') {
       await this.makeGetInfoRequest();
     }
@@ -207,3 +266,9 @@ controller.start();
 
 searchFormSend.onclick = controller.findPlace.bind(controller);
 refreshButton.onclick = controller.changeBackground.bind(controller);
+
+btnEngLang.onclick = controller.changeLang.bind(controller);
+btnRuLang.onclick = controller.changeLang.bind(controller);
+btnBeLang.onclick = controller.changeLang.bind(controller);
+
+btnSwitch.onclick = controller.changeDegrees.bind(controller);

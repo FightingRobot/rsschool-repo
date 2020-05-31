@@ -1,5 +1,7 @@
 export default class Clock {
     constructor() {
+        this.days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday"];
+        this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         this.date = 0;
         this.timer = 0;
     }

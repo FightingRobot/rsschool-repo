@@ -11,6 +11,10 @@ const selectors = {
     feels: document.querySelector('#feels'),
     wind: document.querySelector('#wind'),
     humid: document.querySelector('#humid'),
+    day0deg: document.querySelector('#day0deg'),
+    day1deg: document.querySelector('#day1deg'),
+    day2deg: document.querySelector('#day2deg'),
+    day3deg: document.querySelector('#day3deg'),
 }
 
 export default selectors;

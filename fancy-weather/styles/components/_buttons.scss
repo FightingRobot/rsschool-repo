@@ -22,9 +22,55 @@
 }
 
 .btn__lang {
-    width: 71px;
+    display: flex;
+    // justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    height: 44px;
+    width: 100px;
     font-weight: 700;
     color: white;
+    margin-right: 10px;
+    color: $white;
+    cursor: pointer;
+    user-select: none;
+
+    span {
+        padding: 5px;
+        opacity: 0.7;
+        background-color: $hit_gray;
+        height: 44px;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            opacity: 1;
+        }
+    
+        &:active {
+            opacity: 0.7;
+        }
+    }
+
+    span:nth-child(1) {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+
+    span:nth-child(3) {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    span:nth-child(2) {
+        border-left: 1px solid #4C5255;
+        border-right: 1px solid #4C5255;
+    }
+
+    span:nth-child(2) {
+        border-left: 1px solid #4C5255;
+        border-right: 1px solid #4C5255;
+    }
 }
 
 .btn__tempscale {
