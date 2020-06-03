@@ -306,6 +306,7 @@ class Controller {
 
   async start(place = 'UserLocation') {
     try {
+      errorBox.textContent = '';
       load.style.display = 'flex';
       if (place === 'UserLocation') {
         await this.makeGetInfoRequest();
@@ -334,7 +335,6 @@ class Controller {
 
       this.initializeSpeech();
 
-      errorBox.textContent = '';
       if (localStorage.getItem('lang') === 'en') {
         load.style.display = 'none';
       }

@@ -303,10 +303,10 @@ textarea {
   white-space: nowrap;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 767px) {
   .temp-info__country {
     font-size: 25px;
-    white-space: wrap;
+    white-space: normal;
   }
 }
 
@@ -485,7 +485,7 @@ textarea {
 
 @media screen and (max-width: 767px) {
   .temp-info__day {
-    font-size: 15px;
+    font-size: 12px;
   }
 }
 
@@ -515,7 +515,7 @@ textarea {
 
 @media screen and (max-width: 767px) {
   .temp-info__temp {
-    font-size: 40px;
+    font-size: 30px;
   }
 }
 

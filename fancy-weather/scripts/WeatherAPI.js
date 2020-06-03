@@ -4,9 +4,13 @@ export default class Weather {
   }
 
   async getInfo(place, lang, temp) {
-    const responce = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&lang=${lang}&units=${temp}&APPID=e1e17f3a37078e2e3cae1a4082e20e57`);
-    this.json = await responce.json();
-    return this.json;
+    try {
+      const responce = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&lang=${lang}&units=${temp}&APPID=e1e17f3a37078e2e3cae1a4082e20e57`);
+      this.json = await responce.json();
+      return this.json;
+    } catch {
+
+    }
   }
 
   getTemp(day = 0) {
