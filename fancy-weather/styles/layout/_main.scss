@@ -131,9 +131,7 @@
 }
 
 .temp-info__img {
-    // position: absolute;
-    // top: -4px;
-    // right: -97px;
+    height: 70px;
 
     @media screen and (max-width: 1020px) {
         width: 50px;
@@ -141,8 +139,8 @@
     }
 
     @media screen and (max-width: 767px) {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
     }
 }
 

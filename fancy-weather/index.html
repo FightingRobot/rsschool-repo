@@ -11,14 +11,14 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet">
 
-
-    <script src="https://use.fontawesome.com/02c757d8fc.js"></script>
     <link rel="stylesheet" href="styles/main.css">
     <script src="./scripts/main.js" type="module"></script>
 </head>
 
 <body>
-    <div class="loadscreen">LOADING, PLEASE WAIT</div>
+    <div class="loadscreen">
+        <img src="./assets/gear.svg" alt="">
+    </div>
     <header class="header">
         <div class="content header__content">
             <div class="header__left">
@@ -36,12 +36,16 @@
                 </div>
             </div>
             <div class="header__right">
+                <div class="btn btn__mic">
+                    <img src="./assets/mic-active.svg" alt="">
+                </div>
                 <form class="search-form" action="">
                     <input class="search-form__input" type="text">
                     <button class="btn search-form__send">SEARCH</button>
                 </form>
             </div>
         </div>
+        <div class="error-box"></div>
     </header>
 
     <main class="main">
@@ -62,7 +66,7 @@
                         <img class="temp-info__img-now" src="" alt="">
                         <div class="temp-info__forecast">
                             <span id='state'>Forecast</span>
-                            <span><span id='feels'>Approximately: </span><span
+                            <span><span id='feels'>Average: </span><span
                                     class="temp-info__feels-like_now"></span></span>
                             <span><span id='wind'>Wind: </span><span class="temp-info__wind-speed_now"></span></span>
                             <span><span id='humid'>Humidity: </span><span class="temp-info__humidity_now"></span></span>
@@ -71,7 +75,7 @@
                 </div>
                 <div class="temp-info__temp-days">
                     <div class="temp-info__temp-day">
-                        <div id='day1' class="temp-info__day">TUESDAY</div>
+                        <div id='day1' class="temp-info__day">UESDAY</div>
                         <div class="temp-info__info">
                             <div id="day1deg" class="temp-info__temp">7</div>
                             <img class="temp-info__img" src="" alt="">

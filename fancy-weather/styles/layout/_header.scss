@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     padding-top: 20px;
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
 
     @media screen and (max-width: 767px) {
         flex-direction: column;
@@ -23,7 +23,7 @@
 
 .header__right {
     display: flex;
-    width: 30%;
+    width: 35%;
 
     @media screen and (max-width: 1020px) {
         width: 50%;
@@ -74,12 +74,11 @@
     width: 100px !important;
 }
 
-.btn__pic {
-display: flex;
-justify-content: center;
-align-items: center;
-color: red;
-    img {
-        width: 50%;
-    }
+.error-box {
+    color:orange;
+    font-weight: 700;
+    height: 20px;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
 }

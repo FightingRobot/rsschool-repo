@@ -15,6 +15,7 @@ const searchFormSend = document.querySelector('.search-form__send');
 const searchFormInput = document.querySelector('.search-form__input');
 const refreshButton = document.querySelector('.btn__pic');
 const btnSwitch = document.querySelector('.btn__tempscale');
+const btnMic = document.querySelector('.btn__mic');
 
 const btnEngLang = document.querySelector('#engLang');
 const btnRuLang = document.querySelector('#ruLang');
@@ -30,6 +31,7 @@ const humidityNow = document.querySelector('.temp-info__humidity_now');
 const tempDays = document.querySelectorAll('.temp-info__temp');
 const iconDays = document.querySelectorAll('.temp-info__img');
 const load = document.querySelector('.loadscreen');
+const errorBox = document.querySelector('.error-box');
 
 const translateSelectors = {
   day0: document.querySelector('#day0'),
@@ -45,10 +47,9 @@ const translateSelectors = {
   humid: document.querySelector('#humid'),
   country: document.querySelector('.temp-info__country'),
   searchButton: document.querySelector('.search-form__send'),
-}
+};
 
 class Controller {
-
   constructor() {
     this.ipinfoAPI = new IpinfoAPI();
     this.geocode = new Geocode();
@@ -63,6 +64,7 @@ class Controller {
     this.lang = 'en';
     this.temp = 0;
     this.date = 0;
+    this.recognition = 0;
   }
 
   loadLang() {
@@ -78,20 +80,23 @@ class Controller {
   }
 
   changeLang() {
+    errorBox.textContent = '';
     this.setLang(event.target.textContent.toLowerCase());
   }
 
   setLang(lang) {
     if (this.lang !== lang) {
-      this.translate(this.lang, lang)
+      this.translate(this.lang, lang);
     }
   }
 
   async translate(lang1, lang2) {
     load.style.display = 'flex';
-    for (let a of Object.values(translateSelectors)) {
+
+    for (const a of Object.values(translateSelectors)) {
       a.innerHTML = await this.yandexAPI.translate(a.innerHTML, lang1, lang2);
     }
+
     this.lang = lang2;
     localStorage.setItem('lang', lang2);
     load.style.display = 'none';
@@ -101,9 +106,9 @@ class Controller {
     this.temp = localStorage.getItem('temp');
 
     if (this.temp === 'imperial') {
-      btnSwitch.innerHTML = 'F';
+      btnSwitch.innerHTML = 'F&deg;';
     } else {
-      btnSwitch.innerHTML = 'M';
+      btnSwitch.innerHTML = 'C&deg;';
     }
 
     if (this.temp === null) {
@@ -116,11 +121,11 @@ class Controller {
     if (this.temp === 'metric') {
       localStorage.setItem('temp', 'imperial');
       this.temp = 'imperial';
-      btnSwitch.innerHTML = 'F';
+      btnSwitch.innerHTML = 'F&deg;';
     } else {
       localStorage.setItem('temp', 'metric');
-      this.temp = 'metric'
-      btnSwitch.innerHTML = 'M';
+      this.temp = 'metric';
+      btnSwitch.innerHTML = 'C&deg;';
     }
 
     await this.makeWeatherRequest();
@@ -135,24 +140,25 @@ class Controller {
   }
 
   async makeGeocodeRequest() {
+    this.searchValue = await this.yandexAPI.translate(this.searchValue, 'ru', 'en');
     await this.geocode.getInfo(this.searchValue, 'en');
   }
 
   setCoords() {
     this.geocode.updateCoords(latitude, longitude);
-  };
+  }
 
   async setPlace() {
     placeSelector.innerHTML = await this.geocode.getFormattedPlace();
-  };
+  }
 
   setWeekDay(date) {
-    const days = this.clock.days;
+    const { days } = this.clock;
     const day = date.getDay();
     const dayMonth = date.getDate();
 
     for (let i = 0; i < 4; i += 1) {
-      this.selectors[`day${i + day}`].innerHTML = days[i + day].toUpperCase();
+      this.selectors[`day${i}`].innerHTML = `ON ${days[i + day].toUpperCase()}`;
 
       if (i === 0) {
         this.selectors.dayMonth.innerHTML = dayMonth;
@@ -161,7 +167,7 @@ class Controller {
   }
 
   setMonth(date) {
-    const months = this.clock.months;
+    const { months } = this.clock;
     const month = date.getMonth();
 
     this.selectors.month.innerHTML = months[month].toUpperCase();
@@ -170,7 +176,7 @@ class Controller {
   setDate() {
     const timestamp = this.geocode.getTimestamp();
     this.date = new Date(timestamp);
-    const date = this.date;
+    const { date } = this;
 
     this.setWeekDay(date);
     this.setMonth(date);
@@ -178,7 +184,7 @@ class Controller {
     this.clock.date = date;
     this.clock.startTimer(timeSelector);
     return timestamp;
-  };
+  }
 
   async makeWeatherRequest() {
     await this.weather.getInfo(this.searchValue, 'en', this.temp);
@@ -194,7 +200,7 @@ class Controller {
   }
 
   setOtherWeather() {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i += 1) {
       tempDays[i].innerHTML = `${Math.round(this.weather.getTemp(i + 1))}&deg;`;
       iconDays[i].src = this.weather.getIcon(i + 1, 2);
     }
@@ -206,7 +212,7 @@ class Controller {
       style: 'mapbox://styles/mapbox/streets-v11',
       center: this.geocode.getCoords().reverse(),
       zoom: 8,
-      accessToken: 'pk.eyJ1IjoiYXphbWF0LXR1cmJvIiwiYSI6ImNrYXNqYm1wajBrMmkzMW1zM3psYjk5cHEifQ.6BZ2fiSMJylkScQ-R_609w'
+      accessToken: 'pk.eyJ1IjoiYXphbWF0LXR1cmJvIiwiYSI6ImNrYXNqYm1wajBrMmkzMW1zM3psYjk5cHEifQ.6BZ2fiSMJylkScQ-R_609w',
     });
 
     const marker = new mapboxgl.Marker()
@@ -214,9 +220,38 @@ class Controller {
       .addTo(map);
   }
 
+  createUnsplashRequest() {
+    const value = this.searchValue;
+    const hours = this.date.getHours();
+    const month = this.date.getMonth();
+
+    // if (month >= 5 && month < 8) {
+    //   value += '+summer';
+    // } else if (month >= 8 && month < 11) {
+    //   value += '+autumn';
+    // } else if (month >= 2 && month < 5) {
+    //   value += '+spring';
+    // } else {
+    //   value += '+winter';
+    // }
+
+    // if (hours >= 8 && hours < 13) {
+    //   value += '+morning';
+    // } else if (hours >= 13 && hours < 19) {
+    //   value += '+day';
+    // } else if (hours >= 19 && hours <= 23) {
+    //   value += '+evening';
+    // } else {
+    //   value += '+night';
+    // }
+
+    return value;
+  }
+
   async makeUnsplashRequest() {
+    const value = this.createUnsplashRequest();
     this.picNum = 0;
-    await this.unsplash.getInfo(this.searchValue);
+    await this.unsplash.getInfo(value);
   }
 
   setBackground() {
@@ -228,15 +263,55 @@ class Controller {
     this.setBackground();
   }
 
-  async start(place = 'UserLocation') {
+  initializeSpeech() {
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    this.recognition = new SpeechRecognition();
+    this.recognition.interimResults = true;
+    btnMic.onclick = this.startRecord.bind(this);
+  }
 
+  startRecord() {
+    try {
+      btnMic.classList.toggle('btn__mic_active');
+
+      this.recognition.addEventListener('result', (e) => {
+        const transcript = Array.from(e.results)
+          .map((result) => result[0])
+          .map((result) => result.transcript)
+          .join('');
+
+        this.searchValue = transcript;
+        if (e.results[0].isFinal) {
+          this.onRecordsEnd();
+        }
+      });
+
+      this.recognition.addEventListener('end', () => {
+        btnMic.classList.remove('btn__mic_active');
+      });
+
+      this.recognition.start();
+    } catch {
+      this.recognition.stop();
+    }
+  }
+
+  async onRecordsEnd() {
+    btnMic.classList.toggle('btn__mic_active');
+    searchFormInput.value = this.searchValue;
+
+    await this.start(this.searchValue);
+    await this.translate('en', this.lang);
+  }
+
+  async start(place = 'UserLocation') {
     try {
       load.style.display = 'flex';
       if (place === 'UserLocation') {
         await this.makeGetInfoRequest();
       }
 
-      let results = await Promise.all([
+      const results = await Promise.all([
         this.loadDegrees(),
 
         await this.makeGeocodeRequest(),
@@ -252,26 +327,33 @@ class Controller {
         this.loadLang(),
 
         await this.makeUnsplashRequest(),
-        await this.setBackground()
+        await this.setBackground(),
       ]);
       await this.setCoords();
       await this.setPlace();
-      load.style.display = 'none';
+
+      this.initializeSpeech();
+
+      errorBox.textContent = '';
+      if (localStorage.getItem('lang') === 'en') {
+        load.style.display = 'none';
+      }
     } catch {
-      alert('Please, write correct place');
+      errorBox.textContent = 'Please, write correct place';
       load.style.display = 'none';
     }
   }
 
   async findPlace() {
     event.preventDefault();
+    errorBox.textContent = '';
     this.searchValue = searchFormInput.value;
     await this.start(this.searchValue);
     await this.translate('en', this.lang);
   }
 }
 
-let controller = new Controller();
+const controller = new Controller();
 
 controller.start();
 
