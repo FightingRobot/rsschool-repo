@@ -1,0 +1,22 @@
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(54, 0, 49);
+    background-color: purple;
+    width: 100px;
+    height: 40px;
+    color: $white;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 20px;
+    transition: 0.5s;
+
+    &:hover {
+        background-color: rgb(54, 0, 49);
+    }
+}
+
+.btn__start {
+    margin-top: 40px;
+}

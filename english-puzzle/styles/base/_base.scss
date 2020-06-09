@@ -1,0 +1,78 @@
+html {
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+    background-color: black;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url(../assets/chopik.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: brightness(75%);
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 10;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+a {
+  color: $black;
+  text-decoration: none;
+}
+
+input {
+  box-shadow: none;
+}
+
+textarea {
+  resize: none;
+  outline: none;
+  box-shadow: none;
+  font-size: 2rem;
+}
+
+.content {
+  max-width: $max-width;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+ }
+
+ .loadscreen {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: absolute;
+   text-align: center;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: $white;
+   z-index: 9999;
+   font-size: 60px;
+   color: black;
+ }
+
+ .loadscreen_active {
+   display: flex;
+ }
