@@ -45,6 +45,12 @@ main {
     width: 700px;
 }
 
+.game-screen__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .game-screen-header {
     display: flex;
     justify-content: space-between;
@@ -72,16 +78,21 @@ main {
     width: 100%;
     height: 85%;
     margin-bottom: 10px;
-    opacity: .3;
+    border-radius: 10px;
+    // opacity: .3;
 }
 
 .game-screen__puzzle-pieces {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     // height: 40px;
     background-color: purple;
     width: 100%;
     height: 15%;
     margin-bottom: 10px;
-    opacity: .3;
+    border-radius: 10px;
+    // opacity: .3;
 }
 
 .game-screen-header__page,
@@ -107,4 +118,44 @@ select {
         outline: none;
         border-bottom: 1px solid rgb(54, 0, 49);
     }
+}
+
+.puzzle-piece {
+    opacity: 1;
+    border: 1px solid black;
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+.playboard__row {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.playboard__sentence_active {
+    background-color: #C056C0;
+}
+
+.playboard__number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: rgb(54, 0, 49);
+    width: 25px;
+    height: 25px;
+    margin: 0 10px;
+}
+
+.playboard__sentence {
+    width: 100%;
+    height: 100%;
 }

@@ -34,8 +34,10 @@
     border-radius: 50%;
 }
 
-.btn__dknow {
-    width: 100px;
+.btn__dknow,
+.btn__check {
+    width: 110px;
     height: 40px;
     border-radius: 15px;
+    margin: 0 10px;
 }
