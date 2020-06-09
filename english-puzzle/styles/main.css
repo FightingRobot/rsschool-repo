@@ -272,7 +272,7 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 100%;
+  height: 100vh;
 }
 
 .main__content {
@@ -288,9 +288,6 @@ main {
 }
 
 .start-screen {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   display: none;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -322,6 +319,97 @@ main {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+.game-screen {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 90vh;
+  width: 700px;
+}
+
+.game-screen-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.game-screen-header__left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.game-screen-header__right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.game-screen__sentence {
+  margin-bottom: 10px;
+}
+
+.game-screen__playboard {
+  background-color: purple;
+  width: 100%;
+  height: 85%;
+  margin-bottom: 10px;
+  opacity: .3;
+}
+
+.game-screen__puzzle-pieces {
+  background-color: purple;
+  width: 100%;
+  height: 15%;
+  margin-bottom: 10px;
+  opacity: .3;
+}
+
+.game-screen-header__page,
+.game-screen-header__lvl {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 10px;
+}
+
+select {
+  background-color: purple;
+  border: 1px solid #360031;
+  border-radius: 10px;
+  color: white;
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+select option {
+  background-color: #360031;
+  outline: none;
+  border-bottom: 1px solid #360031;
 }
 
 .keyboard {
@@ -448,24 +536,44 @@ main {
           align-items: center;
   border: 1px solid #360031;
   background-color: purple;
-  width: 100px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   color: white;
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  border-radius: 20px;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
+  border-radius: 35%;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+.btn img {
+  width: 60%;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
 }
 
 .btn:hover {
   background-color: #360031;
+  border: 1px solid purple;
+}
+
+.btn:hover img {
+  width: 70%;
 }
 
 .btn__start {
   margin-top: 40px;
+  width: 100px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.btn__dknow {
+  width: 100px;
+  height: 40px;
+  border-radius: 15px;
 }
 /*# sourceMappingURL=main.css.map */

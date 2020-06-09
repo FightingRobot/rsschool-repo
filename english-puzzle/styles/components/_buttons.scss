@@ -4,19 +4,38 @@
     align-items: center;
     border: 1px solid rgb(54, 0, 49);
     background-color: purple;
-    width: 100px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     color: $white;
     cursor: pointer;
     user-select: none;
-    border-radius: 20px;
-    transition: 0.5s;
+    border-radius: 35%;
+    transition: 0.1s;
+
+    img {
+        width: 60%;
+        transition: 0.1s;
+    }
 
     &:hover {
         background-color: rgb(54, 0, 49);
+        border: 1px solid purple;
+
+        img {
+            width: 70%;
+        }
     }
 }
 
 .btn__start {
     margin-top: 40px;
+    width: 100px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.btn__dknow {
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
 }
