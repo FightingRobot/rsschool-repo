@@ -11,8 +11,10 @@ class Controller {
     this.book1 = book1;
     this.sentence = document.querySelector('.game-screen__sentence');
     this.pieces = document.querySelector('.game-screen__puzzle-pieces');
+    this.currentDroppable = document.querySelector('.playboard__sentence_active');
 
     this.currentSentence = 0;
+    this.currentEngSentence = 0;
   }
 
   shuffle(array) {
@@ -27,7 +29,11 @@ class Controller {
   }
 
   createTranslation() {
+    this.currentEngSentence = this.book1[this.currentSentence].textExample.split(' ');
     let engSentence = this.book1[this.currentSentence].textExample.split(' ');
+    // alert(engSentence)
+    // alert(this.currentEngSentence)
+    // this.currentEngSentence = engSentence;
     this.shuffle(engSentence)
 
     for (let word of engSentence) {
@@ -81,13 +87,13 @@ class Controller {
             if (currentDroppable) {
               // логика обработки процесса "вылета" из droppable (удаляем подсветку)
               // leaveDroppable(currentDroppable);
-              currentDroppable.style.backgroundColor = 'blue';
+              currentDroppable.style.backgroundColor = '#C030C0';
             }
             currentDroppable = droppableBelow;
             if (currentDroppable) {
               // логика обработки процесса, когда мы "влетаем" в элемент droppable
               // enterDroppable(currentDroppable);
-              currentDroppable.style.backgroundColor = 'red';
+              currentDroppable.style.backgroundColor = '#C056C0';
             }
           }
         }
@@ -109,6 +115,23 @@ class Controller {
     }
   }
 
+  checkSentence() {
+    let nodes = this.currentDroppable.childNodes;
+    let arr = Array.prototype.slice.call(nodes);
+
+    for (let i = 0; i < arr.length; i++) {
+      // alert(arr[i].textContent)
+      // alert(this.currentEngSentence[i])
+      if (arr[i].textContent === this.currentEngSentence[i]) {
+        nodes[i].style.borderColor = 'green';
+      } else {
+        nodes[i].style.borderColor = 'red';
+      }
+    }
+
+    // alert(arr);
+  }
+
   start() {
     this.createSentence();
     this.createTranslation();
@@ -117,6 +140,7 @@ class Controller {
 }
 
 const btnStart = document.querySelector('.btn__start');
+const btnCheck = document.querySelector('.btn__check');
 
 class MenuNavigation {
   constructor() {
@@ -136,3 +160,4 @@ const controller = new Controller();
 controller.start();
 
 btnStart.onclick = menuNavigation.gameStart.bind(menuNavigation);
+btnCheck.onclick = controller.checkSentence.bind(controller);

@@ -445,7 +445,6 @@ select option {
 .puzzle-piece {
   opacity: 1;
   border: 1px solid black;
-  width: 100px;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
