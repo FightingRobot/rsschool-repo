@@ -34,15 +34,23 @@ main {
     }
 }
 
-.game-screen {
+.start-screen_active {
     display: flex;
-    // display: none;
+}
+
+.game-screen {
+    // display: flex;
+    display: none;
     flex-direction: column;
     // justify-content: center;
     align-items: center;
     width: 100%;
     height: 90vh;
     width: 700px;
+}
+
+.game-screen_active {
+    display: flex;
 }
 
 .game-screen__buttons {
@@ -153,6 +161,7 @@ select {
     width: 25px;
     height: 25px;
     margin: 0 10px;
+    user-select: none;
 }
 
 .playboard__sentence {
