@@ -338,7 +338,7 @@ main {
           align-items: center;
   width: 100%;
   height: 90vh;
-  width: 700px;
+  width: 766px;
 }
 
 .game-screen_active {
@@ -466,6 +466,7 @@ select option {
 .playboard__row {
   height: 10%;
   width: 100%;
+  height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -473,6 +474,12 @@ select option {
       -ms-flex-align: center;
           align-items: center;
   border-bottom: 1px solid black;
+}
+
+.playboard__sentence {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .playboard__sentence_active {
@@ -501,7 +508,7 @@ select option {
 }
 
 .playboard__sentence {
-  width: 100%;
+  width: 741px;
   height: 100%;
 }
 

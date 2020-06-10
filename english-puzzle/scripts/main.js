@@ -38,9 +38,81 @@ class Controller {
     }
   }
 
+  setDragondrop() {
+    let pieces = document.querySelectorAll('.puzzle-piece');
+
+    for (let piece of pieces) {
+      piece.onmousedown = function (event) {
+        // alert(piece.innerHTML)
+        let shiftX = event.clientX - piece.getBoundingClientRect().left;
+        let shiftY = event.clientY - piece.getBoundingClientRect().top;
+
+        piece.style.position = 'absolute';
+        piece.style.zIndex = 1000;
+        document.body.append(piece);
+
+        moveAt(event.pageX, event.pageY);
+
+        function moveAt(pageX, pageY) {
+          piece.style.left = pageX - shiftX + 'px';
+          piece.style.top = pageY - shiftY + 'px';
+        }
+
+        let currentDroppable = document.querySelector('.playboard__sentence_active');
+        // let currentDroppable = none;
+
+        function onMouseMove(event) {
+          moveAt(event.pageX, event.pageY);
+
+          // piece.hidden = true;
+          piece.style.display = 'none';
+          let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+          piece.style.display = 'flex';
+          // piece.hidden = false;
+
+          // alert(elemBelow.className)
+
+          if (!elemBelow) return;
+
+          let droppableBelow = elemBelow.closest('.playboard__sentence_active');
+          // alert(droppableBelow)
+
+          if (currentDroppable != droppableBelow) {
+            if (currentDroppable) {
+              // логика обработки процесса "вылета" из droppable (удаляем подсветку)
+              // leaveDroppable(currentDroppable);
+              currentDroppable.style.backgroundColor = 'blue';
+            }
+            currentDroppable = droppableBelow;
+            if (currentDroppable) {
+              // логика обработки процесса, когда мы "влетаем" в элемент droppable
+              // enterDroppable(currentDroppable);
+              currentDroppable.style.backgroundColor = 'red';
+            }
+          }
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+
+        piece.onmouseup = function () {
+          try {
+            document.removeEventListener('mousemove', onMouseMove);
+            piece.onmouseup = null;
+            currentDroppable.append(piece);
+            piece.style.position = 'static';
+          } catch {
+
+          }
+        };
+
+      };
+    }
+  }
+
   start() {
     this.createSentence();
     this.createTranslation();
+    this.setDragondrop();
   }
 }
 
