@@ -9,12 +9,14 @@ import book1 from '../assets/vocabulary/data/book1.js';
 class Controller {
   constructor() {
     this.book1 = book1;
-    this.sentence = document.querySelector('.game-screen__sentence');
+    this.ruSentence = document.querySelector('.game-screen__sentence');
     this.pieces = document.querySelector('.game-screen__puzzle-pieces');
-    this.currentDroppable = document.querySelector('.playboard__sentence_active');
+    this.currentDroppable = 0;
+    this.enSentence = document.querySelectorAll('.playboard__sentence');
 
     this.currentSentence = 0;
     this.currentEngSentence = 0;
+    this.piecesArr = [];
   }
 
   shuffle(array) {
@@ -24,31 +26,37 @@ class Controller {
     }
   }
 
-  createSentence() {
-    this.sentence.innerHTML = this.book1[this.currentSentence].textExampleTranslate;
+  createRuSentence() {
+    this.ruSentence.innerHTML = this.book1[this.currentSentence].textExampleTranslate;
   }
 
-  createTranslation() {
+  createPieces() {
     this.currentEngSentence = this.book1[this.currentSentence].textExample.split(' ');
-    let engSentence = this.book1[this.currentSentence].textExample.split(' ');
-    // alert(engSentence)
-    // alert(this.currentEngSentence)
-    // this.currentEngSentence = engSentence;
-    this.shuffle(engSentence)
+    this.piecesArr = [];
 
-    for (let word of engSentence) {
+    for (let i = 0; i < this.currentEngSentence.length; i++) {
       let newElem = document.createElement('div');
       newElem.classList.add('puzzle-piece');
-      newElem.innerHTML = word;
-      this.pieces.append(newElem);
+      newElem.setAttribute('data-order', i);
+      newElem.innerHTML = this.currentEngSentence[i];
+      this.piecesArr.push(newElem);
     }
+  }
+
+  addPieces() {
+    let arr = this.piecesArr.slice();
+    this.shuffle(arr);
+    arr.map(a => {
+      this.pieces.append(a);
+    });
+    this.currentDroppable = document.querySelector('.playboard__sentence_active');
   }
 
   setDragondrop() {
     let pieces = document.querySelectorAll('.puzzle-piece');
 
     for (let piece of pieces) {
-      piece.onmousedown = function (event) {
+      piece.onmousedown = function startDD(event) {
         // alert(piece.innerHTML)
         let shiftX = event.clientX - piece.getBoundingClientRect().left;
         let shiftY = event.clientY - piece.getBoundingClientRect().top;
@@ -64,24 +72,21 @@ class Controller {
           piece.style.top = pageY - shiftY + 'px';
         }
 
+        // let currentDroppable = document.querySelector('.playboard__sentence_active');
         let currentDroppable = document.querySelector('.playboard__sentence_active');
+        // this.currentDroppable = document.querySelector('.playboard__sentence_active');
         // let currentDroppable = none;
 
         function onMouseMove(event) {
           moveAt(event.pageX, event.pageY);
 
-          // piece.hidden = true;
           piece.style.display = 'none';
           let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
           piece.style.display = 'flex';
-          // piece.hidden = false;
-
-          // alert(elemBelow.className)
 
           if (!elemBelow) return;
 
           let droppableBelow = elemBelow.closest('.playboard__sentence_active');
-          // alert(droppableBelow)
 
           if (currentDroppable != droppableBelow) {
             if (currentDroppable) {
@@ -100,7 +105,7 @@ class Controller {
 
         document.addEventListener('mousemove', onMouseMove);
 
-        piece.onmouseup = function () {
+        piece.onmouseup = function endDD() {
           try {
             document.removeEventListener('mousemove', onMouseMove);
             piece.onmouseup = null;
@@ -116,31 +121,67 @@ class Controller {
   }
 
   checkSentence() {
+    // alert(this.currentDroppable.innerHTML)
     let nodes = this.currentDroppable.childNodes;
     let arr = Array.prototype.slice.call(nodes);
+    let correct = 0;
 
     for (let i = 0; i < arr.length; i++) {
-      // alert(arr[i].textContent)
-      // alert(this.currentEngSentence[i])
-      if (arr[i].textContent === this.currentEngSentence[i]) {
+      if (i === Number(arr[i].getAttribute('data-order'))) {
         nodes[i].style.borderColor = 'green';
+        correct++;
       } else {
         nodes[i].style.borderColor = 'red';
       }
     }
+    if (correct === this.piecesArr.length) {
+      btnCheck.textContent = 'Continue';
+      btnCheck.onclick = this.continueGame.bind(this);
+    }
+  }
 
-    // alert(arr);
+  dontknow() {
+    let arr = this.piecesArr;
+    for (let piece of arr) {
+      this.enSentence[this.currentSentence].append(piece);
+    }
+    this.continueGame();
+  }
+
+  continueGame() {
+    // this.makeInactive()
+    btnCheck.onclick = this.checkSentence.bind(this);
+    btnCheck.textContent = 'Check';
+
+    this.enSentence[this.currentSentence].classList.remove('playboard__sentence_active');
+    this.enSentence[this.currentSentence].style.backgroundColor = 'purple';
+    this.currentSentence++;
+    this.enSentence[this.currentSentence].classList.add('playboard__sentence_active');
+    this.start();
+  }
+
+  makeInactive() {
+    let nodes = this.currentDroppable.childNodes;
+    for (let node of nodes) {
+      // node.classList.add('puzzle-piece_placed');
+
+      // node.addEventListener('mousedown', function () { alert('ass') });
+      // node.addEventListener('mouseup', function () { return 'done' });
+    }
+
   }
 
   start() {
-    this.createSentence();
-    this.createTranslation();
+    this.createRuSentence();
+    this.createPieces();
+    this.addPieces();
     this.setDragondrop();
   }
 }
 
 const btnStart = document.querySelector('.btn__start');
 const btnCheck = document.querySelector('.btn__check');
+const btnDknow = document.querySelector('.btn__dknow');
 
 class MenuNavigation {
   constructor() {
@@ -161,3 +202,4 @@ controller.start();
 
 btnStart.onclick = menuNavigation.gameStart.bind(menuNavigation);
 btnCheck.onclick = controller.checkSentence.bind(controller);
+btnDknow.onclick = controller.dontknow.bind(controller);
