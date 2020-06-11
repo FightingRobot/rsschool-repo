@@ -130,7 +130,7 @@ select {
 
 .puzzle-piece {
     opacity: 1;
-    border: 1px solid black;
+    // border: 1px solid black;
     // width: 100px;
     height: 30px;
     display: flex;
@@ -140,6 +140,12 @@ select {
     cursor: pointer;
 }
 
+.playboard {
+    background-position: center;
+    background-size: cover;
+    background-color: purple !important;
+}
+
 .playboard__row {
     height: 10%;
     width: 100%;
@@ -147,6 +153,7 @@ select {
     display: flex;
     align-items: center;
     border-bottom: 1px solid black;
+    // background-color: purple;
 }
 
 .playboard__sentence {
@@ -177,4 +184,5 @@ select {
 
 .measure {
     position: absolute;
+    visibility: hidden;
 }

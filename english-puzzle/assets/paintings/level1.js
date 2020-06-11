@@ -263,11 +263,11 @@ const paintings1 = [
     "author": "ASSCHE, Henri van",
     "year": "1806"
   },
-   {
+  {
     "id": "1_34",
     "name": "Winter Landscape",
-     "imageSrc": "level1/winterla_1.jpg",
-     "cutSrc": "level1/cut/winterla_1.jpg",
+    "imageSrc": "level1/winterla_1.jpg",
+    "cutSrc": "level1/cut/winterla_1.jpg",
     "author": "ASSCHE, Henri van",
     "year": "1814"
   },
@@ -279,11 +279,11 @@ const paintings1 = [
     "author": "ASSELYN, Jan",
     "year": "1652"
   },
-   {
+  {
     "id": "1_36",
     "name": "Italianate Landscape with a River and an Arched Bridge",
-     "imageSrc": "level1/italiana.jpg",
-     "cutSrc": "level1/cut/italiana.jpg",
+    "imageSrc": "level1/italiana.jpg",
+    "cutSrc": "level1/cut/italiana.jpg",
     "author": "ASSELYN, Jan",
     "year": "1648"
   },
@@ -359,6 +359,6 @@ const paintings1 = [
     "author": "BACKHUYSEN, Ludolf",
     "year": "1680"
   },
-] 
+]
 
 export default paintings1;

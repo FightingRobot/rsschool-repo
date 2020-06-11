@@ -1,24 +1,36 @@
-import vocabulary from './vocabulary.js';
-import Geocode from './GeocodingAPI.js';
-import Clock from './Clock.js';
-import Weather from './WeatherAPI.js';
-import Unsplash from './UnsplashAPI.js';
-import YandexAPI from './YandexAPI.js';
 import book1 from '../assets/vocabulary/data/book1.js';
+import level1 from '../assets/paintings/level1.js';
+import setDragondrop from './dragondrop.js'
+import MenuNavigation from './MenuNavigation.js'
+
+const btnStart = document.querySelector('.btn__start');
+const btnCheck = document.querySelector('.btn__check');
+const btnDknow = document.querySelector('.btn__dknow');
 
 class Controller {
   constructor() {
-    this.book1 = book1;
+    this.playboard = document.querySelector('.playboard');
     this.ruSentence = document.querySelector('.game-screen__sentence');
     this.pieces = document.querySelector('.game-screen__puzzle-pieces');
     this.currentDroppable = 0;
     this.enSentence = document.querySelectorAll('.playboard__sentence');
 
+    this.currentLevel = 0;
+    this.currentPage = 0;
     this.currentSentence = 0;
+    this.currentLib = 0;
+
     this.currentEngSentence = 0;
     this.piecesArr = [];
     this.widthArr = [];
   }
+
+  // setCurrentRound() {
+  //   if (this.currentSentence > 9) {
+  //     this.currentSentence = 0;
+  //     this.currentPage++;
+  //   }
+  // }
 
   shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -28,11 +40,17 @@ class Controller {
   }
 
   createRuSentence() {
-    this.ruSentence.innerHTML = this.book1[this.currentSentence].textExampleTranslate;
+    // alert(this.currentSentence);
+    // alert(this.currentPage);
+    this.ruSentence.innerHTML = book1[this.currentSentence].textExampleTranslate;
+  }
+
+  createPicture() {
+    this.playboard.style.backgroundImage = `url('assets/paintings/${level1[0].cutSrc}')`
   }
 
   createPieces() {
-    this.currentEngSentence = this.book1[this.currentSentence].textExample.split(' ');
+    this.currentEngSentence = book1[this.currentSentence].textExample.split(' ');
     this.piecesArr = [];
 
     for (let i = 0; i < this.currentEngSentence.length; i++) {
@@ -59,10 +77,18 @@ class Controller {
     let piecesWidth = widthArr.reduce((sum, a) => sum + a);
     let delta = Math.floor((width - piecesWidth) / pieces.length);
     let newWidthArr = widthArr.map(x => x + delta);
+    let reduced = 0;
 
     this.piecesArr.map((x, i) => {
+      if (i > 0) {
+        reduced += newWidthArr[i - 1];
+      }
+
       x.style.width = `${newWidthArr[i]}px`;
-    })
+      x.style.backgroundImage = `url('assets/paintings/${level1[0].cutSrc}')`;
+      x.style.backgroundPosition = `-${reduced}px -${this.currentSentence * 30}px`;
+      // x.style.backgroundAttachment = `scroll`;
+    });
   }
 
   addPieces() {
@@ -71,78 +97,9 @@ class Controller {
     arr.map(a => {
       this.pieces.append(a);
     });
-    // this.currentDroppable = document.querySelector('.playboard__sentence_active');
-  }
-
-  setDragondrop() {
-    let pieces = document.querySelectorAll('.puzzle-piece');
-
-    for (let piece of pieces) {
-      piece.onmousedown = function startDD(event) {
-        let shiftX = event.clientX - piece.getBoundingClientRect().left;
-        let shiftY = event.clientY - piece.getBoundingClientRect().top;
-
-        piece.style.position = 'absolute';
-        piece.style.zIndex = 1000;
-        document.body.append(piece);
-
-        moveAt(event.pageX, event.pageY);
-
-        function moveAt(pageX, pageY) {
-          piece.style.left = pageX - shiftX + 'px';
-          piece.style.top = pageY - shiftY + 'px';
-        }
-
-        // let currentDroppable = document.querySelector('.playboard__sentence_active');
-        let currentDroppable = document.querySelector('.playboard__sentence_active');
-        // this.currentDroppable = document.querySelector('.playboard__sentence_active');
-        // let currentDroppable = none;
-
-        function onMouseMove(event) {
-          moveAt(event.pageX, event.pageY);
-
-          piece.style.display = 'none';
-          let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-          piece.style.display = 'flex';
-
-          if (!elemBelow) return;
-
-          let droppableBelow = elemBelow.closest('.playboard__sentence_active');
-
-          if (currentDroppable != droppableBelow) {
-            if (currentDroppable) {
-              // логика обработки процесса "вылета" из droppable (удаляем подсветку)
-              // leaveDroppable(currentDroppable);
-              currentDroppable.style.backgroundColor = '#C030C0';
-            }
-            currentDroppable = droppableBelow;
-            if (currentDroppable) {
-              // логика обработки процесса, когда мы "влетаем" в элемент droppable
-              // enterDroppable(currentDroppable);
-              currentDroppable.style.backgroundColor = '#C056C0';
-            }
-          }
-        }
-
-        document.addEventListener('mousemove', onMouseMove);
-
-        piece.onmouseup = function endDD() {
-          try {
-            document.removeEventListener('mousemove', onMouseMove);
-            piece.onmouseup = null;
-            currentDroppable.append(piece);
-            piece.style.position = 'static';
-          } catch {
-
-          }
-        };
-
-      };
-    }
   }
 
   checkSentence() {
-    // alert(this.currentDroppable.innerHTML)
     let nodes = this.currentDroppable.childNodes;
     let arr = Array.prototype.slice.call(nodes);
     let correct = 0;
@@ -189,39 +146,23 @@ class Controller {
       // node.addEventListener('mousedown', function () { alert('ass') });
       // node.addEventListener('mouseup', function () { return 'done' });
     }
-
   }
 
   start() {
+    // this.setCurrentRound();
     this.createRuSentence();
+    this.createPicture()
     this.createPieces();
     this.determineWidth();
     this.addPieces();
-    this.setDragondrop();
+    setDragondrop();
   }
 }
 
-const btnStart = document.querySelector('.btn__start');
-const btnCheck = document.querySelector('.btn__check');
-const btnDknow = document.querySelector('.btn__dknow');
-
-class MenuNavigation {
-  constructor() {
-    this.startScreen = document.querySelector('.start-screen');
-    this.gameScreen = document.querySelector('.game-screen');
-  }
-
-  gameStart() {
-    this.startScreen.classList.remove('start-screen_active');
-    this.gameScreen.classList.add('game-screen_active');
-  }
-}
-
-const menuNavigation = new MenuNavigation();
 const controller = new Controller();
 
 controller.start();
 
-btnStart.onclick = menuNavigation.gameStart.bind(menuNavigation);
+btnStart.onclick = MenuNavigation.gameStart.bind(MenuNavigation);
 btnCheck.onclick = controller.checkSentence.bind(controller);
 btnDknow.onclick = controller.dontknow.bind(controller);
