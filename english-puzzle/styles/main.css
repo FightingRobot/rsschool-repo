@@ -511,6 +511,10 @@ select option {
   height: 100%;
 }
 
+.measure {
+  position: absolute;
+}
+
 .keyboard {
   display: none;
   width: 100%;

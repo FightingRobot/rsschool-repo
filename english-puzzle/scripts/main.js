@@ -17,6 +17,7 @@ class Controller {
     this.currentSentence = 0;
     this.currentEngSentence = 0;
     this.piecesArr = [];
+    this.widthArr = [];
   }
 
   shuffle(array) {
@@ -43,13 +44,34 @@ class Controller {
     }
   }
 
+  determineWidth() {
+    this.currentDroppable = document.querySelector('.playboard__sentence_active');
+    const measurementSquare = document.querySelector('.measure');
+    const width = this.currentDroppable.offsetWidth;
+    let widthArr = [];
+    let pieces = this.piecesArr;
+
+    for (let piece of pieces) {
+      measurementSquare.textContent = piece.textContent;
+      widthArr.push(measurementSquare.offsetWidth);
+    }
+
+    let piecesWidth = widthArr.reduce((sum, a) => sum + a);
+    let delta = Math.floor((width - piecesWidth) / pieces.length);
+    let newWidthArr = widthArr.map(x => x + delta);
+
+    this.piecesArr.map((x, i) => {
+      x.style.width = `${newWidthArr[i]}px`;
+    })
+  }
+
   addPieces() {
     let arr = this.piecesArr.slice();
     this.shuffle(arr);
     arr.map(a => {
       this.pieces.append(a);
     });
-    this.currentDroppable = document.querySelector('.playboard__sentence_active');
+    // this.currentDroppable = document.querySelector('.playboard__sentence_active');
   }
 
   setDragondrop() {
@@ -57,7 +79,6 @@ class Controller {
 
     for (let piece of pieces) {
       piece.onmousedown = function startDD(event) {
-        // alert(piece.innerHTML)
         let shiftX = event.clientX - piece.getBoundingClientRect().left;
         let shiftY = event.clientY - piece.getBoundingClientRect().top;
 
@@ -174,6 +195,7 @@ class Controller {
   start() {
     this.createRuSentence();
     this.createPieces();
+    this.determineWidth();
     this.addPieces();
     this.setDragondrop();
   }
