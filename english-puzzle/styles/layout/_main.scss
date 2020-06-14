@@ -12,12 +12,10 @@ main {
 }
 
 .start-screen {
-    // display: flex;
     display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    // align-self: center;
 
     h2 {
         font-size: 60px;
@@ -39,10 +37,8 @@ main {
 }
 
 .game-screen {
-    // display: flex;
     display: none;
     flex-direction: column;
-    // justify-content: center;
     align-items: center;
     width: 100%;
     height: 90vh;
@@ -55,7 +51,8 @@ main {
 
 .game-screen__buttons {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -81,26 +78,22 @@ main {
 }
 
 .game-screen__playboard {
-    // height: 320px;
     background-color: purple;
     width: 100%;
     height: 85%;
     margin-bottom: 10px;
     border-radius: 10px;
-    // opacity: .3;
 }
 
 .game-screen__puzzle-pieces {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    // height: 40px;
     background-color: purple;
     width: 100%;
     height: 15%;
     margin-bottom: 10px;
     border-radius: 10px;
-    // opacity: .3;
 }
 
 .game-screen-header__page,
@@ -113,16 +106,13 @@ main {
 select {
     background-color: purple;
     border: 1px solid rgb(54, 0, 49);
-    // border-bottom: 1px solid rgb(54, 0, 49);
     border-radius: 10px;
     color: white;
-    // margin-right: 10px;
     outline: none;
     font-family: 'Montserrat', sans-serif;
 
     option {
         background-color: rgb(54, 0, 49);
-        // border: 1px solid rgb(54, 0, 49);
         outline: none;
         border-bottom: 1px solid rgb(54, 0, 49);
     }
@@ -130,8 +120,7 @@ select {
 
 .puzzle-piece {
     opacity: 1;
-    // border: 1px solid black;
-    // width: 100px;
+    border: 1px solid black;
     height: 30px;
     display: flex;
     justify-content: center;
@@ -140,24 +129,31 @@ select {
     cursor: pointer;
 }
 
+.puzzle-piece_hidden {
+    background-image: none !important;
+}
+
 .playboard {
+    position: relative;
     background-position: center;
     background-size: cover;
     background-color: purple !important;
 }
 
 .playboard__row {
-    height: 10%;
+    height: 30px;
     width: 100%;
     height: 30px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid black;
-    // background-color: purple;
 }
 
 .playboard__sentence {
     display: flex;
+    height: 30px;
+    width: 741px;
+    border-bottom: 1px solid black;
 }
 
 .playboard__sentence_active {
@@ -177,12 +173,21 @@ select {
     user-select: none;
 }
 
-.playboard__sentence {
-    width: 741px;
-    height: 100%;
-}
-
 .measure {
     position: absolute;
     visibility: hidden;
+}
+
+.final-pic {
+    position: absolute;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-position: center;
+    background-size: cover;
+    padding: 10px;
 }

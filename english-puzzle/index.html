@@ -19,14 +19,14 @@
 
     <main class="main">
         <div class="content main__content">
-            <div class="start-screen">
+            <div class="start-screen start-screen_active">
                 <h2>ENGLISH PUZZLE</h2>
                 <p>Click on words, collect phrases.</p>
                 <p>Words can be drag and drop. Select tooltips in the menu.</p>
                 <div class="btn btn__start">START</div>
             </div>
 
-            <div class="game-screen game-screen_active">
+            <div class="game-screen">
                 <div class="game-screen__header game-screen-header">
                     <div class="game-screen-header__left">
                         <div class="game-screen-header__lvl">
@@ -40,7 +40,7 @@
                             </select>
                         </div>
                         <div class="game-screen-header__page">
-                            <span>Page:</span> <select name="" id="">
+                            <span>Page:</span> <select name="" id="pages">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -72,6 +72,7 @@
                 </div>
                 <div class="game-screen__sentence"></div>
                 <div class="game-screen__playboard playboard">
+                    <div class="final-pic"></div>
                     <div class="playboard__row">
                         <div class="playboard__number">1</div>
                         <div class="playboard__sentence playboard__sentence_active"></div>

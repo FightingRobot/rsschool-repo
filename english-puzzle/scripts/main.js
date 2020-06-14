@@ -1,7 +1,7 @@
 import book1 from '../assets/vocabulary/data/book1.js';
 import level1 from '../assets/paintings/level1.js';
 import setDragondrop from './dragondrop.js'
-import MenuNavigation from './MenuNavigation.js'
+import Prompts from './Prompts.js'
 
 const btnStart = document.querySelector('.btn__start');
 const btnCheck = document.querySelector('.btn__check');
@@ -14,23 +14,60 @@ class Controller {
     this.pieces = document.querySelector('.game-screen__puzzle-pieces');
     this.currentDroppable = 0;
     this.enSentence = document.querySelectorAll('.playboard__sentence');
+    this.finalPic = document.querySelector('.final-pic');
+    this.pages = document.getElementById('pages');
+    this.startScreen = document.querySelector('.start-screen');
+    this.gameScreen = document.querySelector('.game-screen');
 
     this.currentLevel = 0;
     this.currentPage = 0;
     this.currentSentence = 0;
     this.currentLib = 0;
+    this.count = 0;
 
     this.currentEngSentence = 0;
     this.piecesArr = [];
     this.widthArr = [];
   }
 
-  // setCurrentRound() {
-  //   if (this.currentSentence > 9) {
-  //     this.currentSentence = 0;
-  //     this.currentPage++;
-  //   }
-  // }
+  setCurrentRound() {
+    if (this.currentSentence <= 9) {
+      this.enSentence[this.currentSentence].classList.add('playboard__sentence_active');
+      this.start();
+    }
+    if (this.currentSentence > 9) {
+      this.showPicture();
+      this.currentSentence = 0;
+      this.currentPage += 1;
+      this.pages.value = this.currentPage + 1;
+      btnDknow.style.visibility = 'hidden';
+    }
+  }
+
+  showPicture() {
+    this.finalPic.style.backgroundImage = `url('assets/paintings/${level1[this.currentPage].cutSrc}')`;
+    this.finalPic.style.visibility = 'visible';
+    this.finalPic.textContent = `${level1[this.currentPage].name} ${level1[this.currentPage].author} ${level1[this.currentPage].year}`;
+
+    btnCheck.textContent = 'Next Round';
+    btnCheck.onclick = this.nextRound.bind(this);
+
+    let rows = this.playboard.querySelectorAll('.playboard__sentence');
+
+    for (let row of rows) {
+      row.innerHTML = '';
+    }
+  }
+
+  nextRound() {
+    btnDknow.style.visibility = 'visible';
+    this.finalPic.style.visibility = 'hidden';
+
+    btnCheck.onclick = this.checkSentence.bind(this);
+    btnCheck.textContent = 'Check';
+    this.enSentence[this.currentSentence].classList.add('playboard__sentence_active');
+    this.start();
+  }
 
   shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -40,17 +77,11 @@ class Controller {
   }
 
   createRuSentence() {
-    // alert(this.currentSentence);
-    // alert(this.currentPage);
-    this.ruSentence.innerHTML = book1[this.currentSentence].textExampleTranslate;
-  }
-
-  createPicture() {
-    this.playboard.style.backgroundImage = `url('assets/paintings/${level1[0].cutSrc}')`
+    this.ruSentence.innerHTML = book1[this.count].textExampleTranslate;
   }
 
   createPieces() {
-    this.currentEngSentence = book1[this.currentSentence].textExample.split(' ');
+    this.currentEngSentence = book1[this.count].textExample.split(' ');
     this.piecesArr = [];
 
     for (let i = 0; i < this.currentEngSentence.length; i++) {
@@ -69,6 +100,9 @@ class Controller {
     let widthArr = [];
     let pieces = this.piecesArr;
 
+    let amount = pieces.length;
+    let relativeWidth = 100 / amount;
+
     for (let piece of pieces) {
       measurementSquare.textContent = piece.textContent;
       widthArr.push(measurementSquare.offsetWidth);
@@ -85,9 +119,8 @@ class Controller {
       }
 
       x.style.width = `${newWidthArr[i]}px`;
-      x.style.backgroundImage = `url('assets/paintings/${level1[0].cutSrc}')`;
-      x.style.backgroundPosition = `-${reduced}px -${this.currentSentence * 30}px`;
-      // x.style.backgroundAttachment = `scroll`;
+      x.style.backgroundImage = `url('assets/paintings/${level1[this.currentPage].cutSrc}')`;
+      x.style.backgroundPosition = `-${reduced}px -${(this.currentSentence) * 30}px`;
     });
   }
 
@@ -123,35 +156,32 @@ class Controller {
     for (let piece of arr) {
       this.enSentence[this.currentSentence].append(piece);
     }
-    this.continueGame();
+
+    btnCheck.textContent = 'Continue';
+    btnCheck.onclick = this.continueGame.bind(this);
   }
 
   continueGame() {
-    // this.makeInactive()
     btnCheck.onclick = this.checkSentence.bind(this);
     btnCheck.textContent = 'Check';
 
     this.enSentence[this.currentSentence].classList.remove('playboard__sentence_active');
     this.enSentence[this.currentSentence].style.backgroundColor = 'purple';
+
     this.currentSentence++;
-    this.enSentence[this.currentSentence].classList.add('playboard__sentence_active');
+    this.count++;
+
+    this.setCurrentRound();
+  }
+
+  gameStart() {
+    this.startScreen.classList.remove('start-screen_active');
+    this.gameScreen.classList.add('game-screen_active');
     this.start();
   }
 
-  makeInactive() {
-    let nodes = this.currentDroppable.childNodes;
-    for (let node of nodes) {
-      // node.classList.add('puzzle-piece_placed');
-
-      // node.addEventListener('mousedown', function () { alert('ass') });
-      // node.addEventListener('mouseup', function () { return 'done' });
-    }
-  }
-
   start() {
-    // this.setCurrentRound();
     this.createRuSentence();
-    this.createPicture()
     this.createPieces();
     this.determineWidth();
     this.addPieces();
@@ -161,8 +191,8 @@ class Controller {
 
 const controller = new Controller();
 
-controller.start();
+Prompts.init();
 
-btnStart.onclick = MenuNavigation.gameStart.bind(MenuNavigation);
+btnStart.onclick = controller.gameStart.bind(controller);
 btnCheck.onclick = controller.checkSentence.bind(controller);
 btnDknow.onclick = controller.dontknow.bind(controller);

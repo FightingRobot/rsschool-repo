@@ -351,9 +351,10 @@ main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -444,6 +445,7 @@ select option {
 
 .puzzle-piece {
   opacity: 1;
+  border: 1px solid black;
   height: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -461,14 +463,19 @@ select option {
   cursor: pointer;
 }
 
+.puzzle-piece_hidden {
+  background-image: none !important;
+}
+
 .playboard {
+  position: relative;
   background-position: center;
   background-size: cover;
   background-color: purple !important;
 }
 
 .playboard__row {
-  height: 10%;
+  height: 30px;
   width: 100%;
   height: 30px;
   display: -webkit-box;
@@ -484,6 +491,9 @@ select option {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  height: 30px;
+  width: 741px;
+  border-bottom: 1px solid black;
 }
 
 .playboard__sentence_active {
@@ -511,14 +521,29 @@ select option {
           user-select: none;
 }
 
-.playboard__sentence {
-  width: 741px;
-  height: 100%;
-}
-
 .measure {
   position: absolute;
   visibility: hidden;
+}
+
+.final-pic {
+  position: absolute;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  background-position: center;
+  background-size: cover;
+  padding: 10px;
 }
 
 .keyboard {

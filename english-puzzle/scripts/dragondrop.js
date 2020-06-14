@@ -1,5 +1,7 @@
 function setDragondrop() {
     let pieces = document.querySelectorAll('.puzzle-piece');
+    let piecesArea = document.querySelectorAll('.game-screen__puzzle-pieces');
+
 
     for (let piece of pieces) {
         piece.onmousedown = function startDD(event) {
@@ -35,14 +37,10 @@ function setDragondrop() {
 
                 if (currentDroppable != droppableBelow) {
                     if (currentDroppable) {
-                        // логика обработки процесса "вылета" из droppable (удаляем подсветку)
-                        // leaveDroppable(currentDroppable);
                         currentDroppable.style.backgroundColor = '#C030C0';
                     }
                     currentDroppable = droppableBelow;
                     if (currentDroppable) {
-                        // логика обработки процесса, когда мы "влетаем" в элемент droppable
-                        // enterDroppable(currentDroppable);
                         currentDroppable.style.backgroundColor = '#C056C0';
                     }
                 }
@@ -54,6 +52,7 @@ function setDragondrop() {
                 try {
                     document.removeEventListener('mousemove', onMouseMove);
                     piece.onmouseup = null;
+
                     currentDroppable.append(piece);
                     piece.style.position = 'static';
                 } catch {
