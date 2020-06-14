@@ -1,53 +1,53 @@
 class Prompts {
-    constructor() {
-        this.btnBack = document.querySelector('.btn__back');
-        this.btnTranslate = document.querySelector('.btn__translate');
-        this.btnSound = document.querySelector('.btn__sound');
+  constructor() {
+    this.btnBack = document.querySelector('.btn__back');
+    this.btnTranslate = document.querySelector('.btn__translate');
+    this.btnSound = document.querySelector('.btn__sound');
 
-        this.picEnabled = true;
-        this.translationEnabled = true;
-        this.sentenceSolved = false;
+    this.picEnabled = true;
+    this.translationEnabled = true;
+    this.sentenceSolved = false;
+  }
+
+  showPicture() {
+    // alert(this.picEnabled);
+    const puzzlePieces = document.querySelector('.game-screen__puzzle-pieces');
+    const pieces = puzzlePieces.querySelectorAll('.puzzle-piece');
+
+    for (const piece of pieces) {
+      if (this.picEnabled) {
+        piece.classList.add('puzzle-piece_hidden');
+      } else {
+        piece.classList.remove('puzzle-piece_hidden');
+      }
     }
 
-    showPicture() {
-        // alert(this.picEnabled);
-        let puzzlePieces = document.querySelector('.game-screen__puzzle-pieces');
-        let pieces = puzzlePieces.querySelectorAll('.puzzle-piece');
+    if (this.picEnabled) this.picEnabled = false;
+    else this.picEnabled = true;
+  }
 
-        for (let piece of pieces) {
-            if (this.picEnabled) {
-                piece.classList.add('puzzle-piece_hidden');
-            } else {
-                piece.classList.remove('puzzle-piece_hidden');
-            }
-        }
+  showTranslation() {
+    const sentence = document.querySelector('.game-screen__sentence');
 
-        if (this.picEnabled) this.picEnabled = false;
-        else this.picEnabled = true;
+    if (this.translationEnabled) {
+      sentence.style.visibility = 'hidden';
+    } else {
+      sentence.style.visibility = 'visible';
     }
 
-    showTranslation() {
-        const sentence = document.querySelector('.game-screen__sentence');
+    if (this.translationEnabled) this.translationEnabled = false;
+    else this.translationEnabled = true;
+  }
 
-        if (this.translationEnabled) {
-            sentence.style.visibility = 'hidden';
-        } else {
-            sentence.style.visibility = 'visible';
-        }
+  listenSentence() {
 
-        if (this.translationEnabled) this.translationEnabled = false;
-        else this.translationEnabled = true;
-    }
+  }
 
-    listenSentence() {
-
-    }
-
-    init() {
-        this.btnBack.onclick = this.showPicture;
-        this.btnTranslate.onclick = this.showTranslation;
-        this.btnSound.onclick = this.listenSentence;
-    }
+  init() {
+    this.btnBack.onclick = this.showPicture;
+    this.btnTranslate.onclick = this.showTranslation;
+    this.btnSound.onclick = this.listenSentence;
+  }
 }
 
 export default new Prompts();

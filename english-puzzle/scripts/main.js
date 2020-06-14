@@ -1,7 +1,7 @@
 import book1 from '../assets/vocabulary/data/book1.js';
 import level1 from '../assets/paintings/level1.js';
-import setDragondrop from './dragondrop.js'
-import Prompts from './Prompts.js'
+import setDragondrop from './dragondrop.js';
+import Prompts from './Prompts.js';
 
 const btnStart = document.querySelector('.btn__start');
 const btnCheck = document.querySelector('.btn__check');
@@ -52,9 +52,9 @@ class Controller {
     btnCheck.textContent = 'Next Round';
     btnCheck.onclick = this.nextRound.bind(this);
 
-    let rows = this.playboard.querySelectorAll('.playboard__sentence');
+    const rows = this.playboard.querySelectorAll('.playboard__sentence');
 
-    for (let row of rows) {
+    for (const row of rows) {
       row.innerHTML = '';
     }
   }
@@ -71,7 +71,7 @@ class Controller {
 
   shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
+      const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
@@ -85,7 +85,7 @@ class Controller {
     this.piecesArr = [];
 
     for (let i = 0; i < this.currentEngSentence.length; i++) {
-      let newElem = document.createElement('div');
+      const newElem = document.createElement('div');
       newElem.classList.add('puzzle-piece');
       newElem.setAttribute('data-order', i);
       newElem.innerHTML = this.currentEngSentence[i];
@@ -97,20 +97,20 @@ class Controller {
     this.currentDroppable = document.querySelector('.playboard__sentence_active');
     const measurementSquare = document.querySelector('.measure');
     const width = this.currentDroppable.offsetWidth;
-    let widthArr = [];
-    let pieces = this.piecesArr;
+    const widthArr = [];
+    const pieces = this.piecesArr;
 
-    let amount = pieces.length;
-    let relativeWidth = 100 / amount;
+    const amount = pieces.length;
+    const relativeWidth = 100 / amount;
 
-    for (let piece of pieces) {
+    for (const piece of pieces) {
       measurementSquare.textContent = piece.textContent;
       widthArr.push(measurementSquare.offsetWidth);
     }
 
-    let piecesWidth = widthArr.reduce((sum, a) => sum + a);
-    let delta = Math.floor((width - piecesWidth) / pieces.length);
-    let newWidthArr = widthArr.map(x => x + delta);
+    const piecesWidth = widthArr.reduce((sum, a) => sum + a);
+    const delta = Math.floor((width - piecesWidth) / pieces.length);
+    const newWidthArr = widthArr.map((x) => x + delta);
     let reduced = 0;
 
     this.piecesArr.map((x, i) => {
@@ -125,16 +125,16 @@ class Controller {
   }
 
   addPieces() {
-    let arr = this.piecesArr.slice();
+    const arr = this.piecesArr.slice();
     this.shuffle(arr);
-    arr.map(a => {
+    arr.map((a) => {
       this.pieces.append(a);
     });
   }
 
   checkSentence() {
-    let nodes = this.currentDroppable.childNodes;
-    let arr = Array.prototype.slice.call(nodes);
+    const nodes = this.currentDroppable.childNodes;
+    const arr = Array.prototype.slice.call(nodes);
     let correct = 0;
 
     for (let i = 0; i < arr.length; i++) {
@@ -152,8 +152,8 @@ class Controller {
   }
 
   dontknow() {
-    let arr = this.piecesArr;
-    for (let piece of arr) {
+    const arr = this.piecesArr;
+    for (const piece of arr) {
       this.enSentence[this.currentSentence].append(piece);
     }
 
