@@ -16,6 +16,6 @@ Public clone of private repository for @fightingrobot
 
 ## Presentation "Problem of JS classes"
 
-1. Reveal presentation: https://problem-of-js-classes.netlify.app/#/
-2. Video: https://www.youtube.com/watch?v=ozCDaRdrwT0
-3. Transcript: https://vk.com/doc439514556_555622980
+1. [Reveal presentation](https://problem-of-js-classes.netlify.app/#/)
+2. [Video](https://www.youtube.com/watch?v=ozCDaRdrwT0)
+3. [Transcript](https://vk.com/doc439514556_555622980)
