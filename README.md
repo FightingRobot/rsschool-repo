@@ -1,6 +1,10 @@
 # fightingrobot-RS2020Q1
 Public clone of private repository for @fightingrobot
 
+## My CV
+
+[RSSchool-CV](https://fightingrobot.github.io/rsschool-cv/)
+
 ## Links to see all the projects made during Q1 2020:
 
 1. [Singolo](https://fightingrobot.github.io/singolo/)
