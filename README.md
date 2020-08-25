@@ -24,7 +24,7 @@ Public clone of private repository for @fightingrobot
 2. [Video](https://www.youtube.com/watch?v=ozCDaRdrwT0)
 3. [Transcript](https://vk.com/doc439514556_555622980)
 
-Old HTML/CSS projects (It-academy course August 2019)
+## Old HTML/CSS projects (It-academy course August 2019)
 
 1. [Square](https://fightingrobot.github.io/square/)
 2. [Saturn](https://fightingrobot.github.io/saturn/)
